@@ -1,5 +1,7 @@
 # C Programming Notes
 
+*This content was created by using [Necati Ergin's](https://github.com/necatiergin) C lecture notes.*
+
 **Creation Date :** 21.03.2022 - **Author :** Hasan Guzelmansur
 
 ---
@@ -30,7 +32,11 @@
     - [Floating Types](#floating-types)
     - [Virtual Types](#virtual-types)
 6. [Declaration and Definition](#declaration-and-definition)
-7. [Constants](#constansts)
+7. [Constant Types](#constant-types)
+    - [Integer Constants](#integer-constants)
+    - [Character Constants](#character-constants)
+    - [Escape Sequences](#escape-sequences)
+    - [Real Number Constants](#real-number-constants)
 8. [Functions](#functions)
 
 ---
@@ -186,6 +192,60 @@ Names and bits of some minor units
 
 ## Declaration and Definition
 
-## Constants
+- **Declaration :** They are statements made to give information to the compiler that it will use at compile time.
+- **Definition :** Declarative statements that allow the compiler to allocate memory.
+- **Variable declaration format :** *<typed_words> <variable_name> <;>*
+- Only 63 characters can be used in naming. The 52 lowercase and uppercase letters, numbers, and underscore in the English alphabet.
+- Variable names have no length limit in C, but the compiler must consider the first 31 characters of the variable name.
+- The words signed and unsigned can be used alone without type keywords. In this case, it is assumed that a variable of type int has been declared.
+- If there is more than one type keyword in the declaration statement, the order of their spelling is not important. But in terms of readability, it has become a tradition to use the keyword indicating the sign first and then the keyword indicating the type.
+- When a variable is defined, it can be initialized.
+
+**Points to consider when determining variable names:**
+
+- The names chosen should be meaningful.
+- Names should not be chosen as the name of the group to which variables with different properties belong.
+- There should be linguistic integrity in naming.
+- In C, variable names are traditionally chosen lowercase.
+
+## Constant Types
+
+**Constant :** Non-object data entered directly by the programmer as a numeric quantity.
+
+### Integer Constants
+
+- Integer constants values are integers. example : signed int, unsigned long etc.
+- An integer literal can take the suffixes u, U, l, or L, no matter what number system it is written in.
+- The suffix u or U determines that the integer literal is of unsigned integer type. The suffixes l or L determine that the integer literal is of type long.
+
+### Character Constants
+
+- Character constants are typically assigned to objects of type char.
+- If the image of a character is written in a "single quote", it is treated as a direct character constant by the compiler.
+- In C, character constants are treated as int and processed.
+
+### Escape Sequences
+
+- Escape Sequences are backslash character constants
+- Other spellings of character constants use single quotes with a backslash '\' followed by other characters. In English, these formats are called "escape sequences".
+
+#### Default Escape Sequences
+
+|  | Definition | ASCII NO |
+|--|--|--|
+| '\a' | alert | 7 |
+| '\b' | back space | 8 |
+| '\t' | tab | 9 |
+| '\n' | new line | 10 |
+| '\v' | vertical tab | 11 |
+| '\f' | form feed | 12 |
+| '\r' | carriage return | 13 |
+
+### Real Number Constants
+
+- Constants that contain periods, suffixed with 'f' or 'F', are of float type.
+- Constants without the suffix 'f' ,'F', l, L, containing periods, and constants that exceed the float type limit or precision are treated as double-type constants.
+- Constants of the long double type are obtained by adding 'l' or 'L' to the end of dotted or exponential numbers.
+- Real number constants can be written in exponential form (scientific notation). For this, 'e' or 'E' suffix is added to the end of the word.
 
 ## Functions
