@@ -24,7 +24,7 @@
     - [MSD and LSD](#msd-and-lsd)
     - [One's and Two's Complements](#ones-and-twos-complements)
     - [Negative Number Representation](#negative-number-representation)
-    - [Memorizing Real Numbers](#memorizing-real-numbers)
+    - [Keeping Real Numbers in Memory](#keeping-real-numbers-in-memory)
 4. [Creating a C Program](#creating-a-c-program)
     - [Utilities](#utilities)
 5. [Data Types](#data-types)
@@ -52,11 +52,11 @@ The version of the C language used until the standardization process is called T
 ### Some features of C language
 
 - C language is an intermediate programming language close to both machine perception and human perception.
-- C language can be preferred directly to machine language for many applications from an efficiency point of view. Because it is much easier to write the same program in machine language and the loss of efficiency is less.
+- C language can be preferred directly to machine language for many applications from an efficiency point of view. Because it is much easier and less efficient than writing the same program in machine language.
 - The main programming area of the C language is systems programming.
 - C is an algorithmic language.
 - It has high portability and readability features.
-- It is very flexible. It is efficient.
+- It is very flexible and efficient.
 - It is integrated with the UNIX operating system.
 
 ### Keywords - reserved words
@@ -122,8 +122,8 @@ Names and bits of some minor units
 
 ### Binary
 
-- If only zero and positive integers are shown, the binary number system used in this format is called the unsigned binary number system.
-- The use of the binary number system to show negative integers is called the signed binary number system.
+- If only zero and positive integers are shown, the binary number system used in this format is called the **unsigned binary** number system.
+- The use of the binary number system to show negative integers is called the **signed binary** number system.
 
 ### MSD and LSD
 
@@ -133,7 +133,7 @@ Names and bits of some minor units
 ### One's and Two's Complements
 
 - One's complement is the number obtained by inverting all bits of the number.
-- 1 more than the one's complement of a number is the two's complement of the number. Or, Starting from the far right of the number, the same number is written until the 1st bit is seen for the first time, including the first 1 bit.
+- 1 more than the one's complement of a number is the two's complement of the number. Or, Starting from the far right of the number, the same number is written until the 1st bit is seen for the first time, including the first 1 bit. For the remaining digits, the reverse of the digit is written.
 
 ### Negative Number Representation
 
@@ -141,7 +141,7 @@ Names and bits of some minor units
 - In binary, a negative number is the two's complement of a positive number of the same value.
 - In the signed binary number system, a number whose all bits are 1 is -1. *( -1 = 1111 1111 )*
 
-### Memorizing Real Numbers
+### Keeping Real Numbers in Memory
 
 - In most systems, the actual numbers are kept according to the IEEE (Institute of Electrical and Electronics Engineers) 754 standard.
 - According to this standard, two different formats are determined for real numbers:
@@ -150,7 +150,7 @@ Names and bits of some minor units
 
 ## Creating a C Program
 
-- This is the compilation cycle of a .c file :
+- This is the compilation cycle of **file.c** file :
   - *file.c -> **Preprocessor** -> file.i -> **Compiler** -> file.s -> **Assembler** -> file.o -> **linker** -> file.exe*
 - The preprocessor program makes some textual changes on the source file. The output of the preprocessor program is given to the compiler program.
 - The extension of purpose files created on Unix/Linux systems is ".o". In DOS and Windows systems, purpose files have the ".obj" extension.
@@ -164,7 +164,7 @@ Names and bits of some minor units
 
 ## Data Types
 
-- C language has 12 predefined data types. 9 of these types are designed to hold integer data, and the remaining 3 are designed to hold real-number data. These types are integer types and floating types.
+- C language has 12 default data types. 9 of these types are designed to hold integer data, and the remaining 3 are designed to hold real-number data. These types are integer types and floating types.
 
 ### Integer Types
 
@@ -195,7 +195,7 @@ Names and bits of some minor units
 - **Declaration :** They are statements made to give information to the compiler that it will use at compile time.
 - **Definition :** Declarative statements that allow the compiler to allocate memory.
 - **Variable declaration format :** *<typed_words> <variable_name> <;>*
-- Only 63 characters can be used in naming. The 52 lowercase and uppercase letters, numbers, and underscore in the English alphabet.
+- Only 63 characters can be used in identifying. Lowercase and uppercase letters in the English alphabet, numbers, and underscore.
 - Variable names have no length limit in C, but the compiler must consider the first 31 characters of the variable name.
 - The words signed and unsigned can be used alone without type keywords. In this case, it is assumed that a variable of type int has been declared.
 - If there is more than one type keyword in the declaration statement, the order of their spelling is not important. But in terms of readability, it has become a tradition to use the keyword indicating the sign first and then the keyword indicating the type.
@@ -203,10 +203,10 @@ Names and bits of some minor units
 
 **Points to consider when determining variable names:**
 
-- The names chosen should be meaningful.
-- Names should not be chosen as the name of the group to which variables with different properties belong.
-- There should be linguistic integrity in naming.
-- In C, variable names are traditionally chosen lowercase.
+1. The names chosen should be meaningful.
+2. Names should not be chosen as the name of the group to which variables with different properties belong.
+3. There should be linguistic integrity in naming.
+4. In C, variable names are traditionally chosen lowercase.
 
 ## Constant Types
 
@@ -214,9 +214,9 @@ Names and bits of some minor units
 
 ### Integer Constants
 
-- Integer constants values are integers. example : signed int, unsigned long etc.
-- An integer literal can take the suffixes u, U, l, or L, no matter what number system it is written in.
-- The suffix u or U determines that the integer literal is of unsigned integer type. The suffixes l or L determine that the integer literal is of type long.
+- Integer constants values are integers. *Example : signed int, unsigned long etc.*
+- An integer constant can take the suffixes u, U, l, or L, no matter what number system it is written in.
+- The suffix u or U determines that the integer constant is of unsigned integer type. The suffixes l or L determine that the integer constant is of type long.
 
 ### Character Constants
 
@@ -227,7 +227,7 @@ Names and bits of some minor units
 ### Escape Sequences
 
 - Escape Sequences are backslash character constants
-- Other spellings of character constants use single quotes with a backslash '\' followed by other characters. In English, these formats are called "escape sequences".
+- Other spellings of character constants use single quotes with a backslash followed by other characters.
 
 #### Default Escape Sequences
 
