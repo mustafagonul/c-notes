@@ -38,6 +38,9 @@
     - [Escape Sequences](#escape-sequences)
     - [Real Number Constants](#real-number-constants)
 8. [Functions](#functions)
+    - [Function Definition](#functions-definition)
+    - [Defining Function Parameter Variables](#defining-function-parameter-variables)
+    - [Standard C Functions](#standard-c-functions)
 
 ---
 
@@ -249,3 +252,176 @@ Names and bits of some minor units
 - Real number constants can be written in exponential form (scientific notation). For this, 'e' or 'E' suffix is added to the end of the word.
 
 ## Functions
+
+- A function is a piece of program that can be run independently.
+- Function inputs are called "actual parameters" or "arguments", and their outputs are called "return values".
+- In C language, another function cannot be defined within a function definition.
+- Functions in C can only produce a single return value.
+- Functions can only be called from within defined functions. Functions cannot be called from outside of blocks.
+- The linking process between the calling function and the called function is done by the linker at the linking stage.
+- Even if an undefined function is called within a defined function, an error will not occur during the compilation phase. The error occurs during the binding phase.
+- It is not mandatory to use the values produced by the functions that produce the return value.
+- The return value obtained by calling a function can be used as an argument in a call to another function.
+- A function that calls itself is called a recursive function.
+
+**Benefits of using functions :**
+
+- The source code of the program becomes smaller.
+- The readability of the source file increases.
+- Debugging in the program is carried out more easily.
+- Functions written can be used in other projects as well.
+
+**The main purpose of the function :**
+
+- A function accomplishes certain purposes by performing certain operations during its operation.
+- A function can send a value that it will produce at the end of its execution to the calling function.
+
+**The purpose of using the return values of the functions :**
+
+- Functions can be defined to obtain a single value, to calculate a single value.
+- Functions, on the other hand, can respond to a question asked of them when they are called.
+- Functions can both accomplish a certain purpose and in addition produce a return value that completes their purpose.
+- The purpose of non-return functions is sometimes just to perform a job, the success of the job is guaranteed.
+- Non-return functions can pass a value to the outside. However, passing the value is done using another tool, not "return".
+
+### Function Definition 
+
+- Function definition syntax in C : `[Type_of_return_value] <function_name> ([parameters]) { /***/ }`
+
+**void**
+
+- Functions that do not produce a return value are called void functions.
+- Functions with no return value defined are assumed by the compiler to have a return value of type int.
+
+**return**
+
+- The return values of functions in C language are created with return statement.
+- In functions that do not produce a return value, the return keyword can also be used on its own without a statement.
+
+**main**
+
+- The execution of C programs starts with the function called main.
+- A source file that does not have a main function can be compiled. However, when the linker sees that there is no main function at the linking stage, it cannot perform the linking operation.
+- The main function can be defined as a void function. However, although it is not a syntax error, it is not considered correct to define the main function as a void function.
+- Most compilers generate a logical warning message if the main function does not produce a return value.
+
+
+### Defining Function Parameter Variables
+
+- There are two different style, old and new.
+- Old Style : Only the names of the function's parameter variables are written within the function parameter braces.
+
+```
+//Syntax for old style
+
+int func (a, b, c)
+int a;
+double b;
+long c;
+{ 
+  /***/	
+}
+```
+
+- New Style : The declaration of function parameter variables is done only once inside the function brackets.
+
+```
+//Syntax for new style
+
+int func(int x, int y) 
+{ 
+  /***/	
+}
+```
+
+### Standard C Functions
+
+- Standard C functions are functions that have been made mandatory in every compiler after the standardization of the C language.
+- Within the header files, that is, the files with the .h extension, there are standard C function declarations.
+- Libraries consist of compiled files. In the DOS operating system, the extension of the library files is .lib, in the UNIX operating system it is .a (archive). Dynamic libraries with extension .dll are also available under WINDOWS.
+
+**printf**
+
+- With the printf function, a text can be printed to the screen, as well as the value of an expression.
+- The printf function interprets the % characters in the string with a certain number of characters next to them as conversion specifiers.
+  - *Example usage :*  `printf("x = %d\npi = %lf\n", x, pi);`
+
+| Format character | Meaning |
+|------------------|---------|
+|%d|It interprets the int type and writes it in the decimal number system.|
+|%ld|It interprets the long type and writes it in the decimal number system.|
+|%x|It interprets the unsigned int type and writes it in the hexadecimal number system. Use Lowercase.|
+|%X|It interprets the unsigned int type and writes it in the hexadecimal number system. Use Uppercase.|
+|%lx|It interprets the unsigned long type and writes it in the hexadecimal number system.|
+|%u|It interprets the unsigned int type and writes it in the decimal number system.|
+|%o|It interprets the unsigned int type and writes it in the octal number system.|
+|%f|Writes the values of the expressions of float and double types in decimal number system.|
+|%lf|Writes the values of the expressions of double and long double types in decimal number system.|
+|%e|Writes real numbers in exponential form.|
+|%c|It interprets a char or int type expression as a sequence number of a character and prints the image of the corresponding character to the screen.|
+|%s|It prints the text at the given address to the screen.|
+
+- %% is used as the format character to print the percent character itself to the screen.
+  - *Example :* `printf("%%25\n");`
+
+**scanf**
+
+- The scanf function is a standard C function that allows input of any information from the keyboard.
+  - *Example usage :* `scanf("%d%d", &x, &y);`
+- Other arguments to the scanf function are used with the "&" address operator. “&” is a pointer operator.
+
+**C functions that take characters from the keyboard**
+
+- There are three different C functions that receive data from the keyboard. One is standard C function, the others not.
+
+*getchar*
+
+- The return value of the function is an int value that represents the sequence number of the character in the character set table used.
+- The getchar function needs the enter key to get characters from the keyboard.
+  - *Parametric structure :* `int getchar(void);`
+- getchar is defined as a macro within the stdio.h header file in most compilers.
+
+**getch**
+
+- Differences with getchar :
+  - The pressed key does not appear on the screen
+  - Most systems do not need the ENTER key.
+- The conio.h header file should be added to the source code for getch function.
+
+**getche**
+
+- It is abbreviated from the words get char echo.
+- Don't need the enter key.
+- The received character appears on the screen.
+
+**C functions that print characters to the screen**
+
+**putchar** 
+
+- putchar is a standard C function.
+- Writes the character with the parameter to the cursor position on the screen.
+- It is located in the stdio.h header file.
+
+```
+//Example usage
+
+ 	#include <stdio.h> 
+
+	int main() 
+	{ 
+		char ch; 
+		ch = getchar(); 
+		putchar (ch); 
+		return 0; 
+	}
+```
+
+**putch**
+
+- It is not a standard C function.
+- When '\n' is used, it moves to the next line without changing the column where the cursor is located. Other than that, there is no difference with putchar.
+
+**Comment lines**
+
+- Comment lines start with /* and end with */.
+- With the C99 standard, an explanation can be made with double backslash( // ). 
