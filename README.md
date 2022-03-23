@@ -381,14 +381,14 @@ int func(int x, int y)
   - *Parametric structure :* `int getchar(void);`
 - getchar is defined as a macro within the stdio.h header file in most compilers.
 
-**getch**
+*getch*
 
 - Differences with getchar :
   - The pressed key does not appear on the screen
   - Most systems do not need the ENTER key.
 - The conio.h header file should be added to the source code for getch function.
 
-**getche**
+*getche*
 
 - It is abbreviated from the words get char echo.
 - Don't need the enter key.
@@ -396,7 +396,7 @@ int func(int x, int y)
 
 **C functions that print characters to the screen**
 
-**putchar** 
+*putchar*
 
 - putchar is a standard C function.
 - Writes the character with the parameter to the cursor position on the screen.
@@ -416,7 +416,7 @@ int func(int x, int y)
 	}
 ```
 
-**putch**
+*putch*
 
 - It is not a standard C function.
 - When '\n' is used, it moves to the next line without changing the column where the cursor is located. Other than that, there is no difference with putchar.
