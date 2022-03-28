@@ -41,6 +41,12 @@
     - [Function Definition](#functions-definition)
     - [Defining Function Parameter Variables](#defining-function-parameter-variables)
     - [Standard C Functions](#standard-c-functions)
+9. [Operators](#operators)
+    - [Operand](#operand)
+    - [C Language Operator Precedence Table](#c-language-operator-precedence-table)
+10. [Scope and Storage Duration](#scope-and-storage-duration)
+    - [Scope](#scope)
+    - [Storage Duration / Lifespan](#storage-duration--lifespan)
 
 ---
 
@@ -385,7 +391,7 @@ int func(int x, int y)
 
 - Differences with getchar :
   - The pressed key does not appear on the screen
-  - Most systems do not need the ENTER key.
+  - Most systems don't need the enter key.
 - The conio.h header file should be added to the source code for getch function.
 
 *getche*
@@ -425,3 +431,123 @@ int func(int x, int y)
 
 - Comment lines start with /* and end with */.
 - With the C99 standard, an explanation can be made with double backslash( // ). 
+
+
+## Operators
+
+- Operators are tokens that enable predefined operations on objects or literals.
+- Operators enable the microprocessor to produce a value by performing an operation.
+- Each operator defined in programming languages corresponds to at least one machine instruction.
+
+### Operand
+
+- Objects or literals that operators manipulate are called operands.
+- Operators in C can be divided into three groups according to the number of terms they take:
+    - Unary operators
+    - Binary operators
+    - Ternary operator or conditional operator
+- Operators can also be grouped according to their position:
+    - Postfix operators
+    - Prefix operators
+    - Infix operators
+- When an operator changes the value of an object with a term, it is called a side effect of the operator.
+- Classification of Operators
+    - Arithmetic operators
+    - Relational operators
+    - Logical operators
+    - Pointer operators
+    - Bitwise operators
+    - Assignment operators
+    - Special purpose operators
+
+### C Language Operator Precedence Table
+
+|Level|Operator|Definition|Associativity|
+|-----|--------|----------|-------------|
+|1|()|precedence and function call|left associative|
+|1|[]|subscript|left associative|
+|1|.|structure access with object|left associative|
+|1|->|structure access with pointer|left associative|
+|2|+|unary sign|right associative|
+|2|-|unary sign|right associative|
+|2|++|increment|right associative|
+|2|--|decrement|right associative|
+|2|~|bitwise not|right associative|
+|2|!|logical not|right associative|
+|2|*|indirection|right associative|
+|2|&|address of|right associative|
+|2|sizeof|size|right associative|
+|2|(type)|type cast operator|right associative|
+|3|*|multiplication|left associative|
+|3|/|division|left associative|
+|3|%|modulus|left associative|
+|4|+|addition|left associative|
+|4|-|subtraction|left associative|
+|5|<<|bitwise shift left|left associative|
+|5|>>|bitwise shift right|left associative|
+|6|<|less than|left associative|
+|6|>|greater than|left associative|
+|6|<=|less than or equal|left associative|
+|6|>=|greater than or equal|left associative|
+|7|==|equal|left associative|
+|7|!=|not equal to|left associative|
+|8|&|bitwise and|left associative|
+|9|^|bitwise exor|left associative|
+|10|\||bitwise or|left associative|
+|11|&&|logical and|left associative|
+|12|\|\||logical or|left associative|
+|13|?:|conditional|right associative|
+|14|=|assignment|right associative|
+|14|+=|assignment with addition|right associative|
+|14|-=|assignment with subtraction|right associative|
+|14|*=|assignment with multiplication|right associative|
+|14|/=|assignment with division|right associative|
+|14|%=|assignment with modulus|right associative|
+|14|<<=|assignment with bitwise left shift|right associative|
+|14|>>=|assignment with bitwise right shift|right associative|
+|14|&=|assignment with bitwise right and|right associative|
+|14|\|=|assignment with bitwise or|right associative|
+|14|^=|assignment with bitwise exor|right associative|
+|15|,|comma|left associative|
+
+## Scope and Storage Duration
+
+- Three very important properties of objects in terms of C language are "scope", "storage duration" and "linkage".
+
+### Scope
+
+- The scope is the program range in which a name can be recognized.
+- Recognition areas are divided into 4 groups by C standards:
+    - *File scope* : After a name is declared, it is known within the entire source file, that is, within all defined functions.
+    - *Block scope* : A name is known only within one block after it has been declared.
+    - *Function scope* : A name is known only within a function after it has been declared.
+    - *Function Prototype Scope* : A definition that includes names used in function declarations, within the function parameter separator.
+- **Local variables :** Variables defined inside blocks or within the parameter separators of functions are "local variables".
+    - A local variable cannot be defined after an executable statement.
+    - Local variables can be declared inside the main block of a function, or they can be declared inside an internal block (nested block). According to C99 standards, a local variable can be defined anywhere in a block.
+- **Global variables  :** Variables defined outside of blocks are called "global variables".
+    - Global variables are known everywhere from the point they are defined to the end of the source file.
+- **Name lookup :** When the compiler encounters the use of a name, it tries to find out which software entity that name belongs to. This process is called "name lookup".
+    - *Name lookup* is done from the narrow area to the wide awareness area.
+
+### Storage Duration / Lifespan
+
+- Storage duration / lifespan is the term used to describe how long objects occupy memory during program runtime.
+- Objects used in programs can be divided into three groups in terms of their lifetime:
+    - Static duration or Static storage class
+        - Static objects take their place in memory when the program starts running.
+        - These entities persist until the program finishes running. Static objects are usually written in object code (.obj). There are three distinct groups of statically-lived entities in the C language :
+            - Global variables
+            - Strings
+            - Static local variables
+    - Automatic storage class
+        - Auto-lived objects are objects that are created at a certain time of the program's execution, discharged from memory after a certain period of activity, that is, they complete their lifetime.
+    - Dynamic storage class
+        - Objects allocated by dynamic memory functions have dynamic lifetimes.
+- Local variables should be preferred to global variables, and global variables should only be used in imperative situations.
+- Global variables can cause the following problems:
+    1. Global variables with a static lifetime remain in memory until the end of the program. Thus, they cause more inefficient use of memory.
+    2. Because global variables are shared by all functions, source files where global variables are used frequently are more difficult to read.
+    3. Searching for errors and making changes is more difficult in a source file where global variables are frequently used.
+    4. Functions that use global variables cannot be easily reused in other projects.
+    5. Global variables belonging to external links pollute the global namespace.
