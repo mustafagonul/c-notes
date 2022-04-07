@@ -47,6 +47,8 @@
 10. [Scope and Storage Duration](#scope-and-storage-duration)
     - [Scope](#scope)
     - [Storage Duration / Lifespan](#storage-duration--lifespan)
+11. [Calling Conventions](#calling-conventions)
+
 
 ---
 
@@ -101,6 +103,30 @@ The version of the C language used until the standardization process is called T
 - Scope is the program area in which a name can be recognized by the language's compiler or interpreter.
 - The lifetime is the portion of time the object remains in existence at program runtime.
 - Linkage is the ability of objects to be recognized in other modules that make up the program.
+
+### L value (left value)
+
+- Expressions that represent objects are called "left value" (lvalue).
+- Variables are always left values. Constants cannot be left values.
+- When GNU C language extensions are enabled, compound expressions, conditional expressions, and casts are allowed as lvalues, if their operands are lvalues.
+- A conditional expression can be a valid lvalue if its type is not void and both of its branches for true and false are valid lvalues. Casts are valid lvalues if the operand is an lvalue. The primary restriction is that you cannot take the address of an lvalue cast. (Reference : [IBM XL C/C++ for AIX](https://www.ibm.com/docs/en/xl-c-and-cpp-aix/13.1.2?topic=operators-lvalues-rvalues))
+
+### R value (right value)
+
+- Expressions that do not show objects are called "right value" (R value).
+- “Right value” is often used to emphasize that an expression does not indicate an object.
+- A function call is always an rvalue.
+
+### Function Designator (C99 Standard)
+
+- C defines a function designator as an expression that has function type. A function designator is distinct from an object type or an lvalue. It can be the name of a function or the result of dereferencing a function pointer. The C language also differentiates between its treatment of a function pointer and an object pointer.
+
+### Increment
+
+- **a++** Postincrement, first the variable a is used, then the value a is incremented by one. 
+- **++a** Preincrement, first the variable a is incremented by one, then the new value a is used.
+- **a--** Postdecrement, first the variable a is used, then the value a is decremented by one.
+- **--a** Predecrement, first the variable a is decremented by one, then the new value a is used.
 
 ### Expression
 
@@ -265,7 +291,7 @@ Names and bits of some minor units
 - Functions in C can only produce a single return value.
 - Functions can only be called from within defined functions. Functions cannot be called from outside of blocks.
 - The linking process between the calling function and the called function is done by the linker at the linking stage.
-- Even if an undefined function is called within a defined function, an error will not occur during the compilation phase. The error occurs during the binding phase.
+- Even if an undefined function is called within a defined function, an error will not occur during the compilation phase. The error occurs during the linker phase.
 - It is not mandatory to use the values produced by the functions that produce the return value.
 - The return value obtained by calling a function can be used as an argument in a call to another function.
 - A function that calls itself is called a recursive function.
@@ -303,6 +329,8 @@ Names and bits of some minor units
 
 - The return values of functions in C language are created with return statement.
 - In functions that do not produce a return value, the return keyword can also be used on its own without a statement.
+- Failure to produce a return value with the return statement will not cause a compile-time error. In this case, the function's execution ends when the end of the function's main block is reached. The function passes a garbage value to where it is called.
+- In void functions, the return keyword can also be used alone, without an accompanying statement. In this case, the return statement terminates the function it is in without generating a return value.
 
 **main**
 
@@ -314,6 +342,8 @@ Names and bits of some minor units
 
 ### Defining Function Parameter Variables
 
+- A function's formal parameters, or parameter variables, are variables that hold inputs from functions that call them. 
+- Information such as the number of parameters of a function and the types of those parameters are reported to the compiler when functions are defined. The values of the argument expressions sent with the function call are copied to the corresponding parameter variables of the function.
 - There are two different style, old and new.
 - Old Style : Only the names of the function's parameter variables are written within the function parameter braces.
 
@@ -339,6 +369,27 @@ int func(int x, int y)
   /***/	
 }
 ```
+
+### Copying Arguments to Parameter Variables
+
+```
+void func(int a) 
+{
+   /***/ 
+ }
+
+int main() 
+{ 
+ 
+  int x = 10; 
+  /***/ 
+  func(x); 
+ 
+  return 0; 
+ }
+```
+- The function call causes the program's flow to jump to where the code for the **func** function is located, at program runtime.
+- **A memory space is reserved for the parameter variable a in the *func* function.** The value of the expression, that is, the value of the variable **x**, is passed to the parameter variable **a**.
 
 ### Standard C Functions
 
@@ -551,3 +602,39 @@ int func(int x, int y)
     3. Searching for errors and making changes is more difficult in a source file where global variables are frequently used.
     4. Functions that use global variables cannot be easily reused in other projects.
     5. Global variables belonging to external links pollute the global namespace.
+
+## Calling Conventions
+
+- Calling conventions describe the interface of called code:
+    - The order in which atomic (scalar) parameters, or individual parts of a complex parameter,are allocated
+    - How parameters are passed (pushed on the stack, placed in registers, or a mix of both)
+    - Which registers the called function must preserve for the caller (also known as: callee-savedregisters or non-volatile registers)
+    - How the task of preparing the stack for, and restoring after, a function call is divided between the caller and the callee
+
+- Calling conventions, **type representations**, and **name mangling** are all part of what is known as an **application binary interface** (ABI).
+
+**NOT : There are subtle differences in how various compilers implement these conventions, so it is often difficult to interface code which is compiled by different compilers. On the other hand, conventions which are used as an API standard (such as stdcall) are very uniformly implemented.**
+
+### cdecl (C declaration)
+
+- The cdecl is a calling convention that originates from Microsoft's compiler for the C programming language and is used by many C compilers for the x86 architecture.
+- In cdecl, subroutine arguments are passed on the stack. Integer values and memory addresses are returned in the EAX register, floating point values in the ST0 x87 register.
+- Registers EAX, ECX, and EDX are caller-saved, and the rest are callee-saved.
+    - **Caller-saved registers** (aka volatile registers, or call-clobbered) are used to hold temporary quantities that need not be preserved across calls.
+    - **Callee-saved registers** (aka non-volatile registers, or call-preserved) are used to hold long-lived values that should be preserved across calls.
+- The x87 floating point registers ST0 to ST7 must be empty (popped or freed) when calling a new function, and ST1 to ST7 must be empty on exiting a function.
+- ST0 must also be empty when not used for returning a value.
+- In the context of the C programming language, function arguments are pushed on the stack in the right-to-left order, i.e. the last argument is pushed first.
+- The cdecl calling convention is usually the default calling convention for x86 C compilers, although many compilers provide options to automatically change the calling conventions used.
+
+**Reference for Calling Conventions**
+
+- [x86 calling conventions](https://en.wikipedia.org/wiki/X86_calling_conventions)
+- [Stack organization; C-calling-convention functions](https://staffwww.fullcoll.edu/aclifton/cs241/lecture-stack-c-functions.html)
+- [Processor register](https://en.wikipedia.org/wiki/Processor_register)
+- [Calling Conventions](https://docs.microsoft.com/en-us/cpp/cpp/calling-conventions?redirectedfrom=MSDN&view=msvc-170)
+- [x64 calling convention](https://docs.microsoft.com/en-us/cpp/build/x64-calling-convention?view=msvc-170)
+- [Name mangling](https://en.wikipedia.org/wiki/Name_mangling)
+- [Application binary interface](https://en.wikipedia.org/wiki/Application_binary_interface)
+- [What are callee and caller saved registers?](https://stackoverflow.com/questions/9268586/what-are-callee-and-caller-saved-registers)
+- [x86](https://en.wikipedia.org/wiki/X86)
