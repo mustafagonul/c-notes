@@ -1,6 +1,6 @@
 # C Programming Notes
 
-*This content was created by using [Necati Ergin's](https://github.com/necatiergin) C lecture notes.*
+*This content was created by using [Necati Ergin's](https://github.com/necatiergin) C Programming Language Course notes.*
 
 **Creation Date :** 21.03.2022 - **Author :** Hasan Guzelmansur
 
@@ -48,8 +48,18 @@
     - [Scope](#scope)
     - [Storage Duration / Lifespan](#storage-duration--lifespan)
 11. [Calling Conventions](#calling-conventions)
-
-
+12. [Control Statement](#control-statement)
+    - [Executable Statement Groups](#executable-statement-groups)
+    - [if](#if)
+13. [Function Declarations](#function-declarations)
+14. [Type Conversions](#type-conversions)
+15. [Conditional Operator (Ternary Operator)](#conditional-operator-ternary-operator)
+16. [Loop Statement](#loop-statement)
+    - [while](#while)
+    - [do while](#do-while)
+    - [for](#for)
+    - [break](#break)
+    - [continue](#continue)
 ---
 
 ## History of the C Language
@@ -57,6 +67,8 @@
 The C language was born as a by-product of the UNIX operating system. Ken Thompson developed the B language and programmed part of the UNIX operating system with B. In 1971, when it became clear that the B language was not suitable for the development of PDP-11 computers and the UNIX operating system, Dennis Ritchie began to create a further version of the B language. He first named this language NB (New B). But, this new language broke away from the B language and started to show different characteristics. That's why he later changed the name of this new language to C. In 1973, most of the UNIX operating system was rewritten in C language. C language became known and used by the masses thanks to the book "C Programming Language" written by Dennis Ritchie and Brain Kernighan in 1978.
 
 The version of the C language used until the standardization process is called Traditional C. The C language was standardized by the American National Standards Institute (ANSI) in 1989. Its official name is American National Standard X3.159-1989, known as ANSI C for short. Then an international standard was established and accepted by ANSI. The commonly accepted standard is called Standard C or C89 for short. C95 and C99 standards are also available. Which version to use depends on the decision of the compiler to be developed and the portability level of the code.
+
+**[Go to Top](#contents)**
 
 ## General Concepts and Terms
 
@@ -128,6 +140,8 @@ The version of the C language used until the standardization process is called T
 - **a--** Postdecrement, first the variable a is used, then the value a is decremented by one.
 - **--a** Predecrement, first the variable a is decremented by one, then the new value a is used.
 
+- There is a restriction on the use of the **++** or **--** operator, such that the term of the operator is an expression that denotes an object. If the expression with the term does not correspond to an object, that is, if it is not a left-hand side value, the written expression is invalid.
+
 ### Expression
 
 - Combinations of variables, operators, and constants are called expressions.
@@ -137,6 +151,8 @@ The version of the C language used until the standardization process is called T
 - The sentences of the C language are called statements. In C, statements are terminated with a semicolon.
 - Some statements are written only to inform the compiler. (declaration statement)
 - Some statements allow the compiler to generate code that does an operation. (executable statement)
+
+**[Go to Top](#contents)**
 
 ## Number systems
 
@@ -183,6 +199,8 @@ Names and bits of some minor units
   1. *single precision format*
   2. *double precision format*
 
+**[Go to Top](#contents)**
+
 ## Creating a C Program
 
 - This is the compilation cycle of **file.c** file :
@@ -196,6 +214,8 @@ Names and bits of some minor units
 - **Logical Error Catchers** : There are special programs that try to catch programming errors that escape the logical warnings of compiler programs. The most used of these programs is a software called LINT.
 - **Code Formatters** : They are programs that organize the general layout of the source code (styler).
 - **Profiler Programs** : These programs are used to measure and evaluate the efficiency of a running program.
+
+**[Go to Top](#contents)**
 
 ## Data Types
 
@@ -225,6 +245,8 @@ Names and bits of some minor units
 - In type **double _Complex**, the real and imaginary parts of the complex number are kept as double.
 - In type **long double _Complex**, the real and imaginary parts of the complex number are kept in type long double.
 
+**[Go to Top](#contents)**
+
 ## Declaration and Definition
 
 - **Declaration :** They are statements made to give information to the compiler that it will use at compile time.
@@ -242,6 +264,8 @@ Names and bits of some minor units
 2. Names should not be chosen as the name of the group to which variables with different properties belong.
 3. There should be linguistic integrity in naming.
 4. In C, variable names are traditionally chosen lowercase.
+
+**[Go to Top](#contents)**
 
 ## Constant Types
 
@@ -276,12 +300,16 @@ Names and bits of some minor units
 | '\f' | form feed | 12 |
 | '\r' | carriage return | 13 |
 
+**[Go to Top](#contents)**
+
 ### Real Number Constants
 
 - Constants that contain periods, suffixed with 'f' or 'F', are of float type.
 - Constants without the suffix 'f' ,'F', l, L, containing periods, and constants that exceed the float type limit or precision are treated as double-type constants.
 - Constants of the long double type are obtained by adding 'l' or 'L' to the end of dotted or exponential numbers.
 - Real number constants can be written in exponential form (scientific notation). For this, 'e' or 'E' suffix is added to the end of the word.
+
+**[Go to Top](#contents)**
 
 ## Functions
 
@@ -316,6 +344,8 @@ Names and bits of some minor units
 - The purpose of non-return functions is sometimes just to perform a job, the success of the job is guaranteed.
 - Non-return functions can pass a value to the outside. However, passing the value is done using another tool, not "return".
 
+**[Go to Top](#contents)**
+
 ### Function Definition 
 
 - Function definition syntax in C : `[Type_of_return_value] <function_name> ([parameters]) { /***/ }`
@@ -339,6 +369,7 @@ Names and bits of some minor units
 - The main function can be defined as a void function. However, although it is not a syntax error, it is not considered correct to define the main function as a void function.
 - Most compilers generate a logical warning message if the main function does not produce a return value.
 
+**[Go to Top](#contents)**
 
 ### Defining Function Parameter Variables
 
@@ -370,6 +401,8 @@ int func(int x, int y)
 }
 ```
 
+**[Go to Top](#contents)**
+
 ### Copying Arguments to Parameter Variables
 
 ```
@@ -390,6 +423,8 @@ int main()
 ```
 - The function call causes the program's flow to jump to where the code for the **func** function is located, at program runtime.
 - **A memory space is reserved for the parameter variable a in the *func* function.** The value of the expression, that is, the value of the variable **x**, is passed to the parameter variable **a**.
+
+**[Go to Top](#contents)**
 
 ### Standard C Functions
 
@@ -490,6 +525,8 @@ int main()
 - Operators enable the microprocessor to produce a value by performing an operation.
 - Each operator defined in programming languages corresponds to at least one machine instruction.
 
+**[Go to Top](#contents)**
+
 ### Operand
 
 - Objects or literals that operators manipulate are called operands.
@@ -501,7 +538,8 @@ int main()
     - Postfix operators
     - Prefix operators
     - Infix operators
-- When an operator changes the value of an object with a term, it is called a side effect of the operator.
+- Operators within the expression produce values in order of precedence. The generated values are passed as terms to the less precedence operators in the expression.
+- When an operator changes the value of an object with a term, it is called a **side effect** of the operator.
 - Classification of Operators
     - Arithmetic operators
     - Relational operators
@@ -510,6 +548,8 @@ int main()
     - Bitwise operators
     - Assignment operators
     - Special purpose operators
+
+**[Go to Top](#contents)**
 
 ### C Language Operator Precedence Table
 
@@ -561,9 +601,21 @@ int main()
 |14|^=|assignment with bitwise exor|right associative|
 |15|,|comma|left associative|
 
+**[Go to Top](#contents)**
+
+### Some Important Terms Used in the C Standards
+
+- **Behavior :** The way a compiler interprets and makes sense of a particular piece of code is called a compiler.
+- **Undefined behavior :** It can lead to interpretation differences that may vary from compiler to compiler but are not explicitly stated in the standards. 
+- **Unspecified behavior :** Situations where the source code can be interpreted differently by the compiler, but the options are limited in this regard.
+- **Implementation dependent behavior :** Some features of the C language are left to the choices of those who write compilers in the standards in order to provide flexibility. For example, what the length of the int type is, whether the default char type is signed or unsigned, whether nested interpretations are accepted or not is entirely up to the compiler writers.
+- **Diagnostic message :** In the standards, the compiler's notification of the problem to the programmer is called a "diagnostic message".
+
 ## Scope and Storage Duration
 
 - Three very important properties of objects in terms of C language are "scope", "storage duration" and "linkage".
+
+**[Go to Top](#contents)**
 
 ### Scope
 
@@ -580,6 +632,8 @@ int main()
     - Global variables are known everywhere from the point they are defined to the end of the source file.
 - **Name lookup :** When the compiler encounters the use of a name, it tries to find out which software entity that name belongs to. This process is called "name lookup".
     - *Name lookup* is done from the narrow area to the wide awareness area.
+
+**[Go to Top](#contents)**
 
 ### Storage Duration / Lifespan
 
@@ -603,6 +657,8 @@ int main()
     4. Functions that use global variables cannot be easily reused in other projects.
     5. Global variables belonging to external links pollute the global namespace.
 
+**[Go to Top](#contents)**
+
 ## Calling Conventions
 
 - Calling conventions describe the interface of called code:
@@ -615,7 +671,9 @@ int main()
 
 **NOT : There are subtle differences in how various compilers implement these conventions, so it is often difficult to interface code which is compiled by different compilers. On the other hand, conventions which are used as an API standard (such as stdcall) are very uniformly implemented.**
 
-### cdecl (C declaration)
+**[Go to Top](#contents)**
+
+### cdecl (C declaration) 
 
 - The cdecl is a calling convention that originates from Microsoft's compiler for the C programming language and is used by many C compilers for the x86 architecture.
 - In cdecl, subroutine arguments are passed on the stack. Integer values and memory addresses are returned in the EAX register, floating point values in the ST0 x87 register.
@@ -626,6 +684,8 @@ int main()
 - ST0 must also be empty when not used for returning a value.
 - In the context of the C programming language, function arguments are pushed on the stack in the right-to-left order, i.e. the last argument is pushed first.
 - The cdecl calling convention is usually the default calling convention for x86 C compilers, although many compilers provide options to automatically change the calling conventions used.
+
+**[Go to Top](#contents)**
 
 **Reference for Calling Conventions**
 
@@ -638,3 +698,416 @@ int main()
 - [Application binary interface](https://en.wikipedia.org/wiki/Application_binary_interface)
 - [What are callee and caller saved registers?](https://stackoverflow.com/questions/9268586/what-are-callee-and-caller-saved-registers)
 - [x86](https://en.wikipedia.org/wiki/X86)
+
+## Control Statement
+
+### Executable Statement Groups
+
+- **Simple Statement :** Statements formed by terminating a statement with a terminating atom are called simple statements.
+- **Null Statement :** A stand-alone terminating atom `;` in C language creates a statement of its own.
+- **Compound Statement :** The structure formed by one or more statements enclosed in a block is called a "compound statement".
+- **Control Statement :** Control statements are statements that can change the flow of the program. These statements follow some predetermined syntax rules.
+
+### if
+
+- It is the statement that controls the flow of the program.
+- Syntax :
+
+```
+if (conditional expression)
+  statements;
+```
+
+- The statement that makes up the correct part of the if statement can be a simple statement, a null statement, a compound statement, or another control statement.
+- **else** : The if control statement can also contain the else keyword. Such an if statement is called an if statement with a false part.
+- Syntax with **else**:3
+
+```
+if (conditional expression)
+  statements1;
+else
+  statements2;
+```
+
+- The conditional expression of the if statement is logically interpreted as **true** or **false**. In the above expression, if the condition is true, statement1 is made, if it is interpreted as false, statement2 is made.
+
+**[Go to Top](#contents)**
+
+**Using the assignment operator in a conditional expression**
+
+- The assignment operator is often used in the condition expression of an if statement. Thus, the value produced by the assignment operator is used.
+- Example :
+
+```
+if ((x = getval()) > 5) 
+ 	func1(x); 
+ else 
+ 	func2(x);
+```
+
+- Codes can also be written differently. But pattern code makes it easier to write more complex statements.
+- Example :
+
+```
+if ((y = getval()) > 5 && isPrime(y)) 
+ 	func1(y);	
+```
+
+**Nested *if* Statements**
+
+- Example :
+
+```
+if (expression1) 
+	if (expression2) 
+		statements1;
+else 
+	statements2;	
+```
+
+- In the above example, although the else part looks like it should belong to the first if statement due to the syntax, the else part belongs to the second if statement. The else keyword, in such cases, belongs to the near if statement (dangling else).
+- If you want the **else** keyword to belong to the first **if statement**, the correct part of the first **if statement** should be blocked.
+- Example :
+
+```
+if (expression1) { 
+	if (expression2) 
+		statements1; 
+} else 
+	statements2;	
+```
+
+**[Go to Top](#contents)**
+
+**else if**
+
+- It is used to condition multiple possibilities.
+- If the conditional expression of any if statement evaluates to true, the program flow will never come to another if statement. This structure is called a cascaded if / else if ladder.
+- Example :
+
+```
+if (expression1) 
+	statements1; 
+else if (expression2) 
+	statements2; 
+else if (expression3) 
+	statements3; 
+else if (expression4) 
+	statements4; 
+else 
+	statements5;	
+```
+
+- The false part of the if statement at the very end of its ladder has special significance. In the example above, statement5 is in the else part of the last if statement of the ladder. If the condition statement of any if statement inside the ladder is not true, the false part of the last if statement is made.
+- Conditions with a higher probability or frequency should be shifted higher on the else if ladder, both for readability and efficiency.
+
+**Some Common Mistakes**
+
+- Example 1 :
+
+```
+if (10 < x < 20) 
+		func();	
+```
+
+- Because the lesser operator has a left-to-right precedence direction, the left-further lesser operator produces a value first. You know that the value the operator produces is either 1 or 0. The value 1 or 0 produced becomes the term for the right-hand less than operator. Since the value 20 is greater than 1 or 0, the expression is always true.
+
+- Example 2 :
+
+```
+if (func) 
+ 		m = 12;	
+```
+
+- Another dangerous mistake is to forget the function call operator if the expression in the if brace is a function call statement.
+- This does not generate a syntax error. In this case, the correct part of the if statement is always executed. In C, a function name is treated as an address equivalent to the memory location of that function's code. Since this address information is always a non-zero value, the condition expression always evaluates to true.
+
+**Test Functions**
+
+- The common agreement for the return values of test functions is as follows: If the function answers the question asked correctly or positively, it returns any value other than 0. If the result of the question asked or the test performed is negative or false, the function returns 0.
+- **isupper :** It is a standard function that tests whether the character to which the code number is sent is uppercase.
+
+**Standard Character Test Functions**
+
+- Character test functions are functions that provide information about characters.
+- In most compilers these functions are also defined as macros within the **ctype.h** header file.
+- The return values are unreliable if used for Turkish characters.
+
+|Function|return Value|
+|--------|------------|
+|**isalpha**|True if it's an alphabetic character, false otherwise.|
+|**isupper**|True if uppercase, false otherwise.|
+|**islower**|True if lowercase, false otherwise.|
+|**isdigit**|True if it is a numeric character, false otherwise.|
+|**isxdigit**|True if it is a character representing one of the hexadecimal digit symbols, ie 0123456789ABCDEFabcdef, false otherwise.|
+|**isalnum**|True if it is an alphabetic or numeric character, false otherwise.|
+|**isspace**|True if one of the space characters (space, carriage return, new line, horizontal tab, vertical tab, form feed) is false, otherwise false.|
+|**ispunct**|True if it is one of the punctuation characters, that is, characters other than control characters, alphanumeric characters, and space characters, otherwise false.|
+|**isprint**|True if it is a character that can be seen on the screen, that is, printable (including the space character), otherwise false.|
+|**isgraph**|True if it is a visible character on the screen (not including the space character), false otherwise.|
+|**iscntrl**|True if it is a control character or a delete character (the first 32 characters of the ASCII set or the number 127 character), otherwise false.|
+
+- Converting from lowercase to uppercase or uppercase to lowercase is a common operation. The standard **toupper** and **tolower** functions are used for this purpose.
+
+**[Go to Top](#contents)**
+
+## Function Declarations
+
+- **What is a function declaration?** : A function declaration is a statement that tells the compiler about a function. The compiler generates the code for the function call using the information it receives from the function declaration.
+- Before a function can be called, its return value must be known to the compiler.
+- The type of return value of a function determines from which CPU registers the return value is received. Obtaining this information at compile time is essential for the program to work correctly.
+- When the C compiler encounters a function call expression, it assumes that the return value of that function is of type int if it has not yet learned about the return value type of the function.
+
+**General format of function declarations**
+
+- Syntax :
+
+```
+	[return value] <function name> ([type1], [type2].....);
+```
+
+- If the return value of the function is not specified in the function declarations, the compiler assumes that the declaration is made for an int return value.
+- With function declarations, only the compiler is informed. Therefore, as a result of the notification, the compiler does not allocate a place in memory for the runtime of the program.
+- If the function does not have a parameter variable, the keyword **void** must be written inside the parameter separator in the declaration.
+
+**Writing names for parameter variables in declarations**
+
+- In function declarations, parameter variables can also be named after their types.
+- Names used within the function declaration bracket are known only within that bracket. These names are not known when left out of this bracket. This reputation zone rule is called **function prototype scope**.
+- Those who read only the declarations of the functions without seeing the definitions of the functions will have an idea of the parameter variable names used in the declarations and what information they expect from the function calls of these variables.
+
+**Location of function declarations**
+
+- In general, function declarations are made at the top of the source file or inside one of the programmer-defined header files.
+
+**Declarations of standard C functions**
+
+- The programmer does not write the declaration of a standard C function in applications, but adds the header file containing this declaration to his/her own source code with the **#include** preprocessor command.
+
+**Failure to declare function**
+
+- In C, the compiler generates the target file by accepting the return value of a function that it does not see declared as int.
+- There is no problem if the return value of the function is not used in the source code, or if the return value of the called function is indeed of type int. However, if the return value of the function is used and the return value is not of type int, there is a runtime error.
+
+**[Go to Top](#contents)**
+
+## Type Conversions
+
+- For processors to perform an arithmetic operation, generally the terms that are processed must have the same length, that is, the number of bits must be the same and they must be expressed in the same format in memory.
+- The C language allows different types to be in the same expression. That is, an integer type variable, a float type literal, or a char variable can be included in a single expression.
+- In this case, the C compiler does the appropriate type conversions so that the computer hardware can evaluate the expression before processing them.
+- Such conversions are performed automatically without the need for the programmer to write any code. Such conversions are called **implicit type conversions**.
+- The C language also allows the programmer to treat any expression as another type using an operator. Such type conversions done by the programmer are called **explicit type conversions/type casts**.
+
+**In which cases type conversion is done?**
+
+1. If the terms of an arithmetic or logical expression are not of the same type
+2. If the type of expression to the right of the assignment operator and the expression to the left of the assignment operator are not the same when the assignment operator is used
+3. If the type of an argument passed to a function in a function call is not the same as the type of the function's corresponding parameter variable
+4. If the type of a return statement is not the same as the type of the corresponding function's return value
+
+**Automatic type conversions before processing**
+
+- Pre-operation automatic type conversions are applied when the types of terms differ in expressions with binomial operators. As a result of automatic type conversion, the case of two different types is eliminated, ensuring that the types of both terms are the same.
+- Generally, the smaller type term is expressed in the type of the larger type term to avoid data loss.
+- Situations that may occur:
+    1. If one of the terms belongs to one of the real number types:
+        - If one of the terms is of type **long double** and the other is of a different type, the other term is expressed as type **long double**. The operation is done in type **long double**.
+        - If one of the terms is of type **double** and the other is of a different type, the other term is expressed as a **double**. The operation is done in **double** type.
+        - If one of the terms is of **float** type and the other is of a different type, the other term is expressed as **float**. The operation is done in **float** type.
+    2. If none of the terms are real number types:
+        - If any of the terms in the expression are of type signed char, unsigned char, signed short int or unsigned short int, these types are converted to int before the following conditions are applied. This conversion is called **integral promotion**.
+        - The following rules are then applied:
+            - If one of the terms is of type **unsigned long** and the other is of a different type, the other term is expressed in type **unsigned long** and the operation is done in type **unsigned long**.
+            - If one of the terms is of **signed long** type and the other is of a different type, the other term is expressed as **signed long** and the transaction is made in the type of **signed long**.
+            - If one of the terms is of type **unsigned int** and the other is of a different type, the other term is expressed as type **unsigned int** and the operation is done of type **unsigned int**.
+        - Exceptions:
+            - If one of the terms is **signed long** int and the other is **unsigned int** and the lengths of these types are the same in the system used (as in UNIX and Win 32 systems), both terms are converted to **unsigned long** int type.
+            - If one of the terms is of type **signed int** and the other is of type **unsigned short** int and the lengths of these types are the same in the system used (as in the DOS operating system), both terms are converted to type **unsigned int**.
+
+**[Go to Top](#contents)**
+
+**Assignment Type Conversions**
+
+- Before assignment, the expression to the right of the assignment operator is expressed in the type of the object to the left of the assignment operator.
+- There is no loss of information in converting small species into large ones.
+
+```
+/*...*/
+
+double leftx; 
+int righty = 5; 
+
+leftx = righty;
+
+/*...*/
+```
+
+- When a negative integer is converted from small to large, the high-significant bits of the number are fed with bit 1 to preserve negativity.
+- In assignment type conversions made by the compiler, information loss may occur if the large type is converted to the small type before the assignment.
+- If the right term of the assignment operator is of a **real number** type (float, double, long double) and the left term is of an **integer** type, the decimal part of the real number value is lost first. If the integer part obtained from the real number cannot be expressed from the integer type to which the assignment is made, this is **undefined behavior**.
+
+**Integral Promotion**
+
+- Integral promotion means that the types char, signed char, unsigned char, short, unsigned short contained in an expression are automatically converted to int before the expression is evaluated by the compiler.
+- The general rule is: If the value of the term to be converted can be expressed as int, it is converted to int, otherwise unsigned int.
+
+**Type conversion in function calls**
+
+- If the called function is defined before the calling function, the compiler determines the type of parameter variables from the function's definition.
+- If the function is declared, the compiler knows ahead of time about the type of parameter variables.
+- Arguments of type char or short are increased to integers (integral promotion). Arguments of type float are converted to type double. No type conversion is performed for arguments of other types.
+
+**Type conversion operator**
+
+- With the typecast operator, an expression can be expressed from another type before it is processed. The type conversion operator is a monomial operator in the prefix position. The operator consists of a parenthesis and a type information enclosed in the parenthesis.
+- Syntax:
+
+```
+/*...*/
+
+(double)x
+
+/*...*/
+```
+
+**[Go to Top](#contents)**
+
+## Conditional Operator (Ternary Operator)
+
+- The conditional operator is the only ternary operator of the C language.
+- For readability, it may be preferable to enclose the first term of the conditional operator in parentheses.
+- Syntax:
+
+```
+expression1 ? expression2 : expression3 
+```
+
+**Conditions using the Conditional Operator**
+
+- There are typical situations where it is recommended to use the conditional operator. In these cases, the general idea is to use the value produced by the conditional operator in the same expression and pass this value somewhere.
+    1. The value produced by the condition operator can be assigned to an object.
+        - Example:
+          ```
+          p = (x == 5) ? 10 : 20;
+          ```
+    2. A function can return the value produced by the condition operator.
+        - Example:
+          ```
+          int max(int a, int b) 
+			    { 
+				    return a > b ? a : b; 
+			    }
+          ```
+    3. A function can be called with the value produced by the condition operator.
+        - Example:
+          ```
+          func(a == b ? x : y); /* At the end of this operation, func(x) or func(y) is called.*/
+          ```
+    4. The value produced by the condition operator can also be used as part of the control expression of a control statement.
+        - Example:
+          ```
+          if (y == (x > 5 ? 10 : 20)) func();
+          ```
+- If the value produced by the condition operator is not to be directly used, the if control statement should be preferred instead of the condition operator.
+- The precedence direction of the condition operator is right to left. If there is more than one condition operator in an expression, the rightmost is evaluated first.
+
+**[Go to Top](#contents)**
+
+## Loop Statement
+
+- Control statements that make a program part run recursively are called "loop statements".
+
+### while
+
+- Syntax:
+
+```
+while (expression) 
+	statement;
+```
+
+- The expression in parentheses following the while keyword is called a **"control expression"**. The first statement following the while separator is called the **"loop body"**.
+- In a **while** loop statement, it is not guaranteed that the statement in the loop body is executed at least once.
+- Since the control statement is handled first, if the control statement is false on the first entry into the loop, the statement in the loop body will not be executed at all.
+
+### break
+
+- A **break** statement is used to exit a loop.
+- When a **break** statement is encountered during the execution of a loop statement, the loop is exited and the program continues with the first statement outside the loop body.
+- The **break** statement can only be used in the body of a **loop statement** or **switch statement**.
+
+### continue
+
+- When the flow of the program comes to the **continue statement** within a loop statement, it is passed to the next round of the loop, as if the loop had finished.
+- The continue statement can only be used in the body of a **loop statement**. It is not valid to be used anywhere other than a loop.
+
+### do while
+
+- Syntax:
+
+```
+do
+  statement;
+while (expression);
+```
+
+- It is not guaranteed that the statement in the body of the loop is executed at least once in a while loop. However, since the control is done at the end in the do while loop, the statement in the body is made at least once.
+
+**[Go to Top](#contents)**
+
+### for
+
+- Syntax:
+
+```
+for (expression1; expression2; expression3) 
+		statement;
+```
+
+- The first statement after closing the for brace creates the loop body.
+- The expression that forms the second part of the **for** brace is called the **control expression**.
+- As for the flow of the program, the for statement is evaluated in the first part of the for brace. The expression in the first part is usually used to initialize the loop variable.
+- The statement in the third part of the for brace is handled after the statement or statements in the loop body have been executed, before the control statement is retested.
+
+**Using the comma operator inside the for brace**
+
+- It is common to use the comma operator in the first and third part of for loops.
+- Example:
+
+```
+for (i = 1, k = 3; i * k < 12500; i += 2, k += 3)
+```
+
+- The initialization of the loop variable can be taken out of the for loop from the first part of the for brace.
+- Increment or decrement of the loop variable can be performed inside the loop body instead of inside the for brace.
+- Any code that can be written with **while loops** can also be written with a **for loop**.
+- An infinite loop with for can be achieved with an expressionless for loop. Example:
+
+```
+for (;;) 
+{ 
+	if (i == 100) 
+			break; 
+	printf("%d ", i++); 
+}
+
+```
+
+- When the continue statement is encountered within the body of the for loop, the flow of the program comes to the third statement of the for brace and this statement is handled.
+
+**Nested Loops**
+
+- Another loop statement can form the body of a loop. Loops created in this way are called **nested loops**.
+- Using the **break statement** in the body of an inner loop only exits the inner loop.
+- If you want to exit all of the nested loops, not just the inner one, then the **goto** control statement should be used.
+
+**Exit states from loops**
+
+1. With the control expression being false
+2. with the **return** statement
+3. with the **break** statement
+4. with the **goto** statement
+5. With a function call that terminates the program
+
+**[Go to Top](#contents)**
