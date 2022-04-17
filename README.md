@@ -60,6 +60,10 @@
     - [for](#for)
     - [break](#break)
     - [continue](#continue)
+17. [Preprocessor Commands](#preprocessor-commands)
+18. [switch Statement](#switch-statement)
+19. [Random Number Generation](#random-number-generation)
+20. [Arrays](#arrays)
 ---
 
 ## History of the C Language
@@ -971,6 +975,12 @@ leftx = righty;
 /*...*/
 ```
 
+**Int to Char casting**
+
+- You can use **itoa()** function to convert the integer to a string.
+- You can use strcat() function to append characters in a string at the end of another string.
+- Note that since characters are smaller in size than integer, this casting may cause a loss of data. It's better to declare the character variable as unsigned in this case (though you may still lose data).
+
 **[Go to Top](#contents)**
 
 ## Conditional Operator (Ternary Operator)
@@ -1088,7 +1098,7 @@ for (i = 1, k = 3; i * k < 12500; i += 2, k += 3)
 for (;;) 
 { 
 	if (i == 100) 
-			break; 
+		break; 
 	printf("%d ", i++); 
 }
 
@@ -1111,3 +1121,242 @@ for (;;)
 5. With a function call that terminates the program
 
 **[Go to Top](#contents)**
+
+## Preprocessor Commands
+
+- A preprocessor is a pre-program that makes some edits and changes to the source file.
+- The input of the preprocessor is the source file itself. The output of the preprocessor program is the input of the compilation module.
+- All lines starting with `#` in C programming language are directives given to the preprocessor program.
+- The preprocessor program doesn't do any work of generating intent code; makes some textual edits in the source code.
+
+**`#include` Preprocessor Command**
+
+- Syntax:
+
+    `#include <file_name>`
+
+- With the `#include` preprocessor command, the name of the file to be added to the source file can be specified in two different ways:
+    1. in angular bracket
+
+      `#include <stdio.h>`
+
+    2. in double quote
+
+      `#include "stdio.h"`
+
+- In most systems, when the file name is written in double quotes, the relevant file is first searched in the current directory by the preprocessor program. If the searched file cannot be found here, this time the search is done in the default directory.
+- Header files created by the programmers themselves are usually included in the source code in double quotes because they are not in the system's directory.
+- The file name to be added to the source code with the #include preprocessor command may also contain the path.
+- The codes that will provide general service (server codes) are generally written in two separate files. The function definitions are in the file with the global variable definitions extension .c. This file is called the implementation file. Notifications concerning client codes are kept in another file. This file is called header file. A header file is the interface of a module. The module establishes its relationship with the outside through its interface.
+
+**`#define` Preprocessor Command**
+
+- The function of the #define preprocessor command can be compared to the "find - replace" feature in text editor programs. This command is used to replace a text in the source code with another text.
+- Often a name is replaced by a numeric value using the #define preprocessor command. A name that is replaced with a numeric value is called a "symbolic constant" (manifest constant).
+- Names defined with the #define preprocessor command are also called "simple macros".
+- New names can be given to C's native data types with the #define preprocessor command.
+- The #define command can be used anywhere in the source file. However, it takes effect in the region from where it is defined to the end of the source file.
+
+## **switch** Statement
+
+- The switch statement is used to do different things for different values of an integer expression.
+
+```
+switch (expression) {
+
+ case expression1 : 
+ case expression2 : 
+ case expression3 : 
+ ....... 
+ case expression_n: 
+ default: 
+
+}
+```
+
+- switch, case, and default are keywords of the C language.
+- If the appropriate case statement is found, only the statement related to this statement is requested to be executed, the break statement is used. Using the break statement exits the switch statement as well as loops. In applications, a break statement is often used for each case statement in the switch statement.
+- Performing the same operations for more than one case statement can be achieved as follows:
+
+```
+case 1: 
+case 2: 
+case 3: 
+	statement1; 
+	statement2; 
+	break;
+case 4:
+```
+
+- Character literals can also be used as case statements.
+
+### goto Statement
+
+- The flow of the program in C language can be redirected to another point in the source code without being bound by a condition.
+
+```
+	<goto label;> 
+	.... 
+	<label:>
+	<statement;>
+```
+
+- goto labels are traditionally capitalized, based on the first column.
+- goto labels can be placed anywhere within a function, before a statement. That is, the label can be placed above or below the goto keyword, provided it is within the same function.
+
+## Random Number Generation
+
+**rand Function**
+
+- The standard `rand` function generates a random number. The rand function's declaration is in a standard header file, stdlib.h.
+
+**srand Function**
+
+- The standard `srand` function serves to change the seed value of the random number generator. The declaration of the srand function in the stdlib.h header file is as follows:
+
+```
+void srand (unsigned int seed);
+```
+
+### Random Real Number Generation
+
+- There is no standard C function that generates random real numbers.
+- With the (double)rand() / RAND_MAX statement, a random real number in the range of 0 – 1 can be generated.
+
+## Arrays
+
+**What is data structure?**
+
+- Arrangements for storing data in a logical relationship about a subject in memory is called a data structure. Data structures allow accessing data kept in a certain order in memory and performing some operations on these data effectively.
+
+**What is Array?**
+
+- A data structure made up of objects of the same type that are contiguous in memory is called an array. The most important feature of the array data structure is that data of the same type in a logical relationship is kept contiguous in memory.
+- Regardless of the number of elements in the array, the access time to an element whose position is known is the same.
+
+** Arrays in C Language**
+
+- By defining an array in C, multiple objects can be created with a single statement.
+- It is ensured that all objects that are members of the array are contiguous in memory.
+
+**Arrays Initializing**
+
+- The general format of array definitions is as follows:
+
+```
+<type> <array_name> [<element_number>];
+```
+
+- type : A word or words that indicate the type of array elements.
+- array_name : It is any name to be given in accordance with the naming conventions.
+- element_number : Indicates how many elements the array has.
+- The expression specifying the number of elements must be a constant expression of an integer type.
+- The n-index element of an array is (n+1) of that array. element.
+- Array overflows are not checked at compile time. Such errors are related to the runtime of the program.
+- It is mandatory to use constant expressions to initialize array elements.
+- Array size may not be specified in initialization. In this case, the compiler calculates the string length by counting the given initial values. It assumes that the directory is opened in that size.
+- In the case of a general array, the array elements are initialized with the value 0 if the array elements are not given a value. But in the case of local arrays, objects that are array elements have block scope and automatic storage class in terms of lifetime. Unassigned local array elements contain garbage values.
+- Array elements are objects. However, an entire array cannot be treated as an object.
+
+```
+	int a[SIZE], b[SIZE];
+	a = b; /* Invalid */
+
+	for (i = 0; i < SIZE; ++i) 
+		a[i] = b[i];
+```
+
+### Sorting Arrays
+
+- **Binary Search** : It is an algorithm for finding a specific value in an ordered array. At each step in this technique, it is checked whether the sought value is equal to the middle value of the array.
+- **Bubble Sort** : It is based on the logic of comparing two items with each other each time while continuously moving over the array to be sorted, and swapping the compared items if they are in the wrong order.
+- **Insertion Sort** : It is a sorting algorithm that builds an ordered array, item by item, at each step.
+- **Selection Sort** : Simply find where the smallest number in the array is at each step. By replacing this number with the number at the beginning of the array, the smallest numbers are selected and it is thrown to the beginning.
+
+**Arrays and strings of char type**
+
+- Strings are no different from other string types, except for some additional features. Arrays of type char are more often defined to hold text in them.
+- In C language, the concept of "terminator character" (null character) is used to perform operations on characters quickly and effectively. The terminating character is the zero-numbered character ('\x0' or '\0') of the ASCII table or the character set used in the system.
+- There must be a terminating character at the end of a text. All standard functions of C that work with texts assume that there is a terminating character at the end of the text they are processing.
+
+**Initializing arrays of type char**
+
+- Array size may not be specified when initializing array elements. In this case, the compiler determines the array size by counting the given initial values. The compiler assumes the array is opened at this size.
+- It is illegal to initialize more elements than the number of elements in the array. There is an exception to this situation. This is valid if the number of elements in the array is initialized in double quotes. In this case, the compiler does not place the terminating character at the end of the string.
+
+  `char name[3] = "Ali"; /* C'de valid, C++'da invalid */`
+
+**gets Function**
+
+- gets is a standard C function used to get a string of characters from the keyboard. The user must press enter after entering characters from the keyboard.
+- Array names actually specify an address information.
+- It places the terminating character ('\0') at the end of the string after inserting the characters entered from the keyboard into the array.
+
+```
+char s[6];
+gets(s); 
+```
+
+- code is written, the compiler allocates 6 bytes of memory for this array (s[0] ...s[5]).
+- if "bardak" is entered in the keyboard for the above code, then the gets function writes the character '\0' to a memory cell that the compiler has not reserved for the array. Such cases are called "off by one".
+- The errors that will occur with the overflow condition are run time, not compile time.
+
+**scanf Function**
+
+- While processing character input with scanf, the insertion process ends with the first space character taken from the keyboard.
+- The '_' character can be used as a space character. In this way, different arrays can be written to the same scanf call.
+
+**puts Function**
+
+- puts is a standard C function.
+- It is used to print the text held in a character string to the screen.
+- The puts function puts the cursor at the beginning of the next line after writing the string to the screen.
+
+**sizeof Operator**
+
+- The sizeof operator in the prefix position produces the value of how many bytes an object of a given type occupies in memory.
+- The value this operator produces is a literal expression for the compiler at compile time.
+- The sizeof operator has three distinct uses:
+    1. As a term, words denoting genre can be used. In this case, the term must be enclosed in parentheses:
+
+        ```
+        sizeof(int)
+        sizeof(double)
+        sizeof(long)
+        ```
+
+    2. Any expression can be used as a term. In this case, it is not necessary to enclose the term in parentheses. However, most programmers prefer to put the term in parentheses for readability:
+
+        ```
+        double x;
+        sizeof(x)
+        sizeof(17.8)
+        sizeof(func())
+        ```
+
+    3. When the sizeof operator takes the name of an array as a term, it produces the value of how many bytes the array occupies in memory, that is, the length of the array in bytes.
+
+        ```
+        double x[10];
+        sizeof(x)
+        ```
+
+**The precedence of the sizeof operator**
+
+- sizeof is also a second-level operator.
+
+**The type of value produced by the sizeof operator**
+
+- The value produced by the sizeof operator is of type unsigned int.
+- When the value produced by the operator is processed with a negative number of type signed int, the type conversion is done in the unsigned direction.
+- In fact, the value produced by the sizeof operator is of the standard typedef type size_t.
+
+**Side-effect of the expression, which is the term of the sizeof operator**
+
+- The expression that is the term of the sizeof operator is not evaluated. The compiler treats this information as type information at compile time.
+
+**The value produced by the sizeof operator is a literal expression**
+
+- The value produced by the sizeof operator is obtained at compile time. So this value can be used wherever a "literal expression" is required.
+
+
