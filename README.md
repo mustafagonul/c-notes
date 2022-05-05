@@ -64,6 +64,7 @@
 18. [switch Statement](#switch-statement)
 19. [Random Number Generation](#random-number-generation)
 20. [Arrays](#arrays)
+21. [Pointer](#pointer)
 ---
 
 ## History of the C Language
@@ -1157,6 +1158,24 @@ for (;;)
 - New names can be given to C's native data types with the #define preprocessor command.
 - The #define command can be used anywhere in the source file. However, it takes effect in the region from where it is defined to the end of the source file.
 
+**[Go to Top](#contents)**
+
+**Simple macros for standard C operators**
+
+```
+#define and       && 
+#define and_eq    &= 
+#define bitand    & 
+#define bitor     | 
+#define compl     ~ 
+#define not       ! 
+#define not_eq    != 
+#define or        || 
+#define or_eq     |= 
+#define xor       ^ 
+#define xor_eq    ^=
+```
+
 ## **switch** Statement
 
 - The switch statement is used to do different things for different values of an integer expression.
@@ -1189,6 +1208,8 @@ case 4:
 ```
 
 - Character literals can also be used as case statements.
+
+**[Go to Top](#contents)**
 
 ### goto Statement
 
@@ -1223,6 +1244,8 @@ void srand (unsigned int seed);
 - There is no standard C function that generates random real numbers.
 - With the (double)rand() / RAND_MAX statement, a random real number in the range of 0 – 1 can be generated.
 
+**[Go to Top](#contents)**
+
 ## Arrays
 
 **What is data structure?**
@@ -1234,7 +1257,7 @@ void srand (unsigned int seed);
 - A data structure made up of objects of the same type that are contiguous in memory is called an array. The most important feature of the array data structure is that data of the same type in a logical relationship is kept contiguous in memory.
 - Regardless of the number of elements in the array, the access time to an element whose position is known is the same.
 
-** Arrays in C Language**
+**Arrays in C Language**
 
 - By defining an array in C, multiple objects can be created with a single statement.
 - It is ensured that all objects that are members of the array are contiguous in memory.
@@ -1266,6 +1289,8 @@ void srand (unsigned int seed);
 		a[i] = b[i];
 ```
 
+**[Go to Top](#contents)**
+
 ### Sorting Arrays
 
 - **Binary Search** : It is an algorithm for finding a specific value in an ordered array. At each step in this technique, it is checked whether the sought value is equal to the middle value of the array.
@@ -1284,7 +1309,9 @@ void srand (unsigned int seed);
 - Array size may not be specified when initializing array elements. In this case, the compiler determines the array size by counting the given initial values. The compiler assumes the array is opened at this size.
 - It is illegal to initialize more elements than the number of elements in the array. There is an exception to this situation. This is valid if the number of elements in the array is initialized in double quotes. In this case, the compiler does not place the terminating character at the end of the string.
 
-  `char name[3] = "Ali"; /* C'de valid, C++'da invalid */`
+  `char name[3] = "Ali"; /* in C valid, in C++ invalid */`
+
+**[Go to Top](#contents)**
 
 **gets Function**
 
@@ -1311,6 +1338,8 @@ gets(s);
 - puts is a standard C function.
 - It is used to print the text held in a character string to the screen.
 - The puts function puts the cursor at the beginning of the next line after writing the string to the screen.
+
+**[Go to Top](#contents)**
 
 **sizeof Operator**
 
@@ -1345,6 +1374,8 @@ gets(s);
 
 - sizeof is also a second-level operator.
 
+**[Go to Top](#contents)**
+
 **The type of value produced by the sizeof operator**
 
 - The value produced by the sizeof operator is of type unsigned int.
@@ -1360,3 +1391,182 @@ gets(s);
 - The value produced by the sizeof operator is obtained at compile time. So this value can be used wherever a "literal expression" is required.
 
 
+## Pointer
+
+- The address of an object is information that indicates the location of that object in memory.
+- Syntax: `<type> *<pointer_name>;`
+- The length of the places that compilers reserve for pointers depends on the hardware and may vary from system to system.
+- It can be 2 bytes or 4 bytes. In DOS, pointers with a length of 2 bytes are called near pointers, and pointers with a length of 4 bytes are called far pointers.
+
+**Address Constants**
+
+- The hexadecimal number system is traditionally used for writing address constants.
+
+**Type Compatibility Related to Pointers**
+
+|Operator|Name                                 |
+|-|--------------------------------------------|
+|*|indirection operator(dereferencing operator)|
+|&|address of operator|
+|[]|index/subscript operator|
+|->|arrow operator|
+
+**`&` address operator**
+
+- The value this operator produces is the address of the object with the term.
+- If the argument mapped to the `%p` format conversion characters is an address information, the printf function prints only the numeric component of the corresponding address information in hexadecimal number system.
+
+**Pointer Arithmetic**
+
+- When the value of a char type pointer is increased by 1, the numeric component of the address increases by 1, when an int type pointer is increased by 1, the numeric component of the address increases by 4, and when a double type pointer is increased by 1, the numeric component of the address increases by 8.
+- Two addresses on the same block can be compared with comparison operators.
+
+**`[]` index/subscript operator**
+
+- The first term of the operator comes before the bracket. This term becomes an address information.
+- The first term of the `[ ]` operator does not have to be the array name.
+- Initialization of pointers should be done with an address information of the pointer type.
+
+**[Go to Top](#contents)**
+
+**Functions with Return Value of Address Type**
+
+- In the definition of such a function, an address type is written where the type of the function's return value is to be written.
+- If the calling code gets the value of an object from the function, it cannot change the object with that value. However, if it gets the address of an object from the function, it can change the address of the retrieved object.
+
+**Returning with Addresses of Local Objects**
+
+- A function that returns an address should never return the address of an auto-lived local object.
+- Returning addresses of auto-lived local objects is a typical programming error.
+- A function returning an address should not return the address of a local variable or the starting address of a local array.
+
+**`NULL` Pointer**
+
+```
+int x = 10; 
+int *ptr = &x;
+```
+
+- We can define the above statement with the following sentences:
+    - The pointer variable `ptr` holds the address of object `x`.
+    - The `ptr` pointer variable points to the object `x`.
+    - The `*ptr` object is the object `ptr` points to.
+    - `*ptr` is the object `x` itself.
+
+- `NULL` is a symbolic literal. This symbolic literal is defined in the standard header files stdio.h, string.h and stddef.h.
+- The `NULL` address can be assigned to any pointer variable.
+- When a pointer variable is assigned a value of `0` of any type, the pre-assignment value `0` is automatically converted to `NULL`.
+- If a function returning an address fails, the function can report its failure by returning a `NULL` address.
+- It is a very common convention in C that a function that returns an address should return a `NULL` address on failure.
+- Before a pointer has expired, the object it points to may expire. In this case, the address with the value of the pointer is not a reliable address.
+
+**Pointers Warnings and Possible Pointer Errors**
+
+- Assigning a different type of address to a pointer
+    - When a pointer variable is assigned a different type of address, most C compilers are suspicious of the situation, giving a logical warning message.
+- Assigning a non-address value to a pointer variable
+
+**[Go to Top](#contents)**
+
+**Locations of Objects in Memory**
+
+- The memory layout of variables larger than one byte may vary depending on the microprocessor used. Therefore, the appearance of variables in memory is not portable information.
+    1. Low-significant byte values to be found at the low-numbered address of memory. Such a layout is called little endian. Intel processors use this layout.
+    2. A second form of location is to place the low-significant byte at the high numeric address. Such a layout is called big endian. Motorola processors use this layout.
+
+**`strlen` Function**
+
+- It is used to obtain the character length of a text, that is, how many characters the text consists of.
+- Syntax : `size_t strlen(const char *str);`
+
+**`strchr` Functions**
+
+- The strchr function is a standard C function to search for a specific character in a string.
+- Syntax: `char *strchr(const char *ptr, int ch);`
+- This function searches for the second parameter, `ch`, starting with the first parameter, `ptr`, until it sees the terminating character.
+- If the `ch` character is not found in the text, the function returns `NULL`.
+
+**`strrchr` Function**
+
+- This standard function searches for a character in a text like the `strchr` function. The search is done starting from the end of the text.
+- Syntax: `char *strrchr(const char *ptr, int ch);`
+- If there is no `ch` character in the text, the return value of the function is `NULL`.
+
+**`strstr` Function**
+
+- This function searches another text within a text.
+- Syntax: `char *strstr(const char *p1, const char *p2);`
+- If text at address p1 contains text at address p2, the function returns the address of the text's location. If not, the return value of the function is `NULL`.
+
+**`strcspn` Function**
+
+- With this function, the index of the first character in another text in a text is found.
+- Syntax: `size_t strcspn(const char *p1, const char *p2);`
+
+**`strpbrk` Function**
+
+- The standard `strpbrk` function searches for any of the characters of another text in a text.
+- Syntax: `char *mStrpbrk(const char *s1, const char *s2)`
+- If the text at address s1 contains any of the characters of the text at address s2, the function returns the address of that character. If none of the characters of the text s2 are present in the text s1 the function returns `NULL`.
+
+**`strcpy` Function**
+
+- The function writes all characters in sequence, starting with the address held in the first parameter, including the terminating character, starting with the address held in its second parameter, until it sees the terminating character.
+- Syntax: `char *strcpy(char *dest, const char *source);`
+
+**`strcat` Function**
+
+- The `strcat` function is used to copy another text to the end of a text.
+- Syntax: `char *strcat(char *s1, const char *s2);`
+
+**`strcmp` Function**
+
+- The function is used to compare two strings of characters. Comparison is querying the priority or equality of text in two strings, taking into account the character set table used.
+- Syntax: `int strcmp(const char *s1, const char *s2);`
+- The function compares the text with the start address in the first parameter variable with the text with the start address in the second parameter variable.
+- The return value of the function is:
+    1. is a positive value if the first text is larger than the second text
+    2. is a negative value if the first text is smaller than the second text,
+    3.If the first text and the second text are equal, it is 0.
+
+**`strncpy` Function**
+
+- The function is used to copy the first n characters of a text (character string) to another location.
+- Syntax: `char *strncpy(char *dest, const char *source, size_t n);`
+
+**`strncat` Function**
+
+- It is used to copy a certain number of characters from another text to the end of a text.
+- Syntax: `char *strncat(char *s1, const char *s2, size_t n);,`
+- The function copies the character string whose start address is given in the first parameter variable to the end of the text whose start address is given in the second parameter, as many as the number of integer characters held in the third parameter.
+- The return value of the function is the starting address of the text to be appended to.
+
+**`strncmp` Function**
+
+- It is similar to the `strcmp` function, except that it is used to compare a certain number of characters, rather than all of the two texts.
+
+**`strset` Function**
+
+- This non-standard function is available in most compilers. The name of the function comes from the words string and set. It is used to fill a string of characters with a specific character.
+- Syntax: `char *strset(char *str, int ch);`
+- The function fills the text with the starting address in the first parameter variable with the character held in the second parameter variable until it sees the terminating character. It does not touch the terminating character at the end of the text.
+
+**`strrev` Function**
+
+- This non-standard function is also available in most compilers.
+- The function is used to reverse a text.
+- Syntax: `char *strrev(char *ptr);`
+- Inverts the text whose start address is held in the function parameter variable. The return value of the function is the starting address of the reversed text.
+
+**`strupr` and `strlwr`Functions**
+
+- Although these functions are not standard, they are available in almost every compiler.
+- These functions perform uppercase conversion for all characters of a text.
+
+**Typical situations that generate a pointer error**
+
+1. Errors caused by uninitialized pointers
+  -Where the data is transferred, there may be code from the operating system, compiler, or other program (memory resident) that remains in memory. In some systems, the program's own code can also be found where the data is transferred.
+2. Pointer errors caused by unsafe initial values
+3. Pointer errors due to array overflows
+  - During the compilation process, when the compiler program sees that an array has been defined, it allocates memory for the array. C compilers do not check at compile time whether a directory has been moved.
