@@ -65,6 +65,7 @@
 19. [Random Number Generation](#random-number-generation)
 20. [Arrays](#arrays)
 21. [Pointer](#pointer)
+22. [void Type Pointer](#void-type-pointer)
 ---
 
 ## History of the C Language
@@ -1267,12 +1268,15 @@ void srand (unsigned int seed);
 - The general format of array definitions is as follows:
 
 ```
-<type> <array_name> [<element_number>];
+// <type> <array_name> [<element_number>];
+//type : A word or words that indicate the type of array elements.
+//array_name : It is any name to be given in accordance with the naming conventions.
+//element_number : Indicates how many elements the array has.
+
+int a[20] = {0}; // In this case, if it is desired to give the value 0 to all elements of an array, it is the shortest way.
+
 ```
 
-- type : A word or words that indicate the type of array elements.
-- array_name : It is any name to be given in accordance with the naming conventions.
-- element_number : Indicates how many elements the array has.
 - The expression specifying the number of elements must be a constant expression of an integer type.
 - The n-index element of an array is (n+1) of that array. element.
 - Array overflows are not checked at compile time. Such errors are related to the runtime of the program.
@@ -1570,3 +1574,33 @@ int *ptr = &x;
 2. Pointer errors caused by unsafe initial values
 3. Pointer errors due to array overflows
   - During the compilation process, when the compiler program sees that an array has been defined, it allocates memory for the array. C compilers do not check at compile time whether a directory has been moved.
+
+## void Type Pointer
+
+- `void` pointers have no type information. Only numeric components of addresses are stored in `void` pointers.
+- A pointer variable of type void can be assigned an address of any type.
+- An address of type `void` can also be assigned to a pointer variable of a certain type.
+
+```
+char *ptr; 
+void *vp; 
+
+/***/ 
+
+ptr = vp; /* Invalid */ 
+vp = ptr; /* Invalid */
+```
+
+- Some operations on pointers with type information cannot be applied to pointers of type void:
+  1. It is illegal for void type pointers to be terms for the * or [ ] operators. These operators require type information to access an object.
+  2. Adding an integer with an address of type void or subtracting an integer from an address of type void is illegal.
+  3. Similarly, two addresses of type void cannot be inferred from each other. For other types of addresses, subtracting two addresses for two objects in the same block is perfectly valid.
+
+- They can also be found in the form of parameter variables in functions where type-independent address operations are performed.
+- Functions in C can also return void addresses. Assigning addresses of type void to a pointer variable of any type is valid.
+
+**void ** Type**
+
+- An object of type `void **` is not an object that can hold the address of a pointer variable of any type.
+- Type `void **` is the type of information that can be the address of an object of type `void *`. An object of type `void **` must only be assigned the address of an object of type `void *`.
+- 
