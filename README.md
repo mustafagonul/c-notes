@@ -66,7 +66,7 @@
 20. [Arrays](#arrays)
 21. [Pointer](#pointer)
 22. [void Type Pointer](#void-type-pointer)
-23. [Strings]()
+23. [Strings](#strings)
 ---
 
 ## History of the C Language
