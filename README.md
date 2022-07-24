@@ -67,6 +67,8 @@
 21. [Pointer](#pointer)
 22. [void Type Pointer](#void-type-pointer)
 23. [Strings](#strings)
+24. [Pointer Arrays](#pointer-arrays)
+25. []()
 ---
 
 ## History of the C Language
@@ -1685,3 +1687,60 @@ char s[10] = "Hasan";
 - **sizeof** is an operator that is handled at compile time.
 - **strlen** is a standard C function. Of course, the return value of this function is obtained during the execution of the program.
 - The return value of the **strlen** function is the length of the received text.
+
+**Where should strings be used?**
+
+- When using texts whose content does not change dynamically at program runtime.
+- When texts to be used for reading-only purposes are used in the source code.
+
+## Pointer Arrays
+
+- The '*' atom is used in the declarations of pointer arrays, unlike normal array declarations.
+- `char *pStrArray[100];`
+  - **pStrArray** is a 100-element char array of pointers. That is, each element of the array is an object of type char *. Each element of the array is a pointer.
+
+**Initializing Arrays of Pointers**
+
+```
+int *p[] = { 
+
+     (int *) 0x1FC0, 
+     (int *) 0x1FC4, 
+     (int *) 0x1FC8, 
+     (int *) 0x1FCC, 
+     (int *) 0x1FD0 
+
+ }
+```
+
+- It is not uncommon to initialize arrays of pointers other than char arrays. Generally, arrays of char type pointers are initialized with string expressions.
+
+**Pointer Arrays of Type Char**
+
+- The most common char type pointer arrays in applications.
+- Strings are automatically converted to char array addresses by the C compiler.
+- Elements of a char array can be initialized with strings.
+
+**Themes for Using Pointer Arrays of Type char**
+
+- It is a common theme that the frequently used texts in the program are stored in the elements of a pointer array instead of being written as a string each time in the source code.
+- In order to test whether a text exists within a certain number of text groups, char type pointer arrays are often used.
+- If the array is public, the value of all array elements is `NULL` when the array starts life. Inside a local pointer array are garbage values.
+- To avoid causing a pointer error, it is necessary to set safe addresses to the elements of the pointer array first.
+- Strings are static-lived entities.
+
+**Pointer to Pointer**
+
+- Pointer variables are objects that contain address information.
+- The `&p` expression is a type that can be the address of an object of type `int *`. This type is represented as `int **` type in C language.
+
+**Functions that Change the Value of a Local Pointer Variable**
+
+- In a function to change the value of a local pointer variable, it must take the address of the local pointer, not its value!
+
+**Functions that Operate on an Array of Pointers**
+
+- The function that operates on an array needs to get the start address of the array and the size of the array.
+- From a compiler's point of view, `a` is equivalent to `&a[0]`.
+
+**[Go to Top](#contents)**
