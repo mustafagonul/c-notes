@@ -66,6 +66,9 @@
 20. [Arrays](#arrays)
 21. [Pointer](#pointer)
 22. [void Type Pointer](#void-type-pointer)
+23. [Strings](#strings)
+24. [Pointer Arrays](#pointer-arrays)
+25. []()
 ---
 
 ## History of the C Language
@@ -1567,6 +1570,8 @@ int *ptr = &x;
 - Although these functions are not standard, they are available in almost every compiler.
 - These functions perform uppercase conversion for all characters of a text.
 
+**[Go to Top](#contents)**
+
 **Typical situations that generate a pointer error**
 
 1. Errors caused by uninitialized pointers
@@ -1603,4 +1608,139 @@ vp = ptr; /* Invalid */
 
 - An object of type `void **` is not an object that can hold the address of a pointer variable of any type.
 - Type `void **` is the type of information that can be the address of an object of type `void *`. An object of type `void **` must only be assigned the address of an object of type `void *`.
-- 
+
+**[Go to Top](#contents)**
+
+## Strings
+
+- When C compilers encounter a string during compilation, they first generate code that places the characters that make up the string into a safe area of memory, with the terminating character at the end.
+- The memory space of strings is determined by the compiler at compile time.
+
+**Passing Strings as Arguments to Functions**
+
+- From the point of view of compilers, it is perfectly natural to call a function whose parameter variable is a pointer of type char, with a string.
+
+**Strings are Read Only**
+
+- Strings can be kept in read-only memory areas. So it is wrong to change the contents of a string within the source code.
+- Codes that modify strings show undefined behavior.
+
+**Identical String**
+
+- C compilers can only store one copy of identical strings in memory.
+- How identical strings are stored is left to the compiler's choice. Many compilers allow the programmer to choose how identical strings are kept in memory.
+
+**Comparing Strings**
+
+- Direct comparison of the strings is a false process.
+
+**Life of Strings**
+
+- Strings are static duration entities.
+- Strings are written to the .obj module by the compiler and to the .exe file by the linker program. They earn life with the installation of the program.
+
+**Returning a function with a String**
+
+- A pointer error is when a function returning an address returns the address of a local variable or a local array.
+- A function returning an address of type char may return a string.
+
+**Concatenating Strings**
+
+- Because strings are treated as a single atom, they must be written one line at a time.
+- To allow fragmentation of long strings, strings with no characters other than a space character between them are concatenated by the compiler and treated as a single string.
+
+```
+ptr = "Necati Ergin'in C Ders "
+"Notlarını okuyorsunuz";
+```
+
+- For the compiler to concatenate two strings, there must be no characters other than white space between the strings.
+- It is possible to pass the next line by ending the string with a backslash character without closing it.
+
+**[Go to Top](#contents)**
+
+**Using backslash character literals in Strings**
+
+- Escape sequences can also be used within strings.
+- Double quotes or backslash characters cannot be used directly in string expressions.
+- Backslash character literals in a string can also be expressed in the octal number system.
+
+**Empty Strings**
+
+- A string can be empty (null string) thats mean it may not contain any characters.
+- Empty strings also specify an address in memory. When the compiler sees an empty string, it only places the terminating character in a safe place in memory.
+
+**Initializing pointer variables with Strings**
+
+- Pointer variables of type char can be initialized with strings.
+
+```
+char *p = "Hasan";
+char s[10] = "Hasan";
+```
+
+- The two designations above are different from each other. 
+-After the string is placed in memory, the starting address is assigned to the pointer variable. Whereas, in arrays, space is reserved for the array first, then the characters are placed in the array elements one by one.
+
+**strlen function and sizeof operator**
+
+- **sizeof** is an operator that is handled at compile time.
+- **strlen** is a standard C function. Of course, the return value of this function is obtained during the execution of the program.
+- The return value of the **strlen** function is the length of the received text.
+
+**Where should strings be used?**
+
+- When using texts whose content does not change dynamically at program runtime.
+- When texts to be used for reading-only purposes are used in the source code.
+
+## Pointer Arrays
+
+- The '*' atom is used in the declarations of pointer arrays, unlike normal array declarations.
+- `char *pStrArray[100];`
+  - **pStrArray** is a 100-element char array of pointers. That is, each element of the array is an object of type char *. Each element of the array is a pointer.
+
+**Initializing Arrays of Pointers**
+
+```
+int *p[] = { 
+
+     (int *) 0x1FC0, 
+     (int *) 0x1FC4, 
+     (int *) 0x1FC8, 
+     (int *) 0x1FCC, 
+     (int *) 0x1FD0 
+
+ }
+```
+
+- It is not uncommon to initialize arrays of pointers other than char arrays. Generally, arrays of char type pointers are initialized with string expressions.
+
+**Pointer Arrays of Type Char**
+
+- The most common char type pointer arrays in applications.
+- Strings are automatically converted to char array addresses by the C compiler.
+- Elements of a char array can be initialized with strings.
+
+**Themes for Using Pointer Arrays of Type char**
+
+- It is a common theme that the frequently used texts in the program are stored in the elements of a pointer array instead of being written as a string each time in the source code.
+- In order to test whether a text exists within a certain number of text groups, char type pointer arrays are often used.
+- If the array is public, the value of all array elements is `NULL` when the array starts life. Inside a local pointer array are garbage values.
+- To avoid causing a pointer error, it is necessary to set safe addresses to the elements of the pointer array first.
+- Strings are static-lived entities.
+
+**Pointer to Pointer**
+
+- Pointer variables are objects that contain address information.
+- The `&p` expression is a type that can be the address of an object of type `int *`. This type is represented as `int **` type in C language.
+
+**Functions that Change the Value of a Local Pointer Variable**
+
+- In a function to change the value of a local pointer variable, it must take the address of the local pointer, not its value!
+
+**Functions that Operate on an Array of Pointers**
+
+- The function that operates on an array needs to get the start address of the array and the size of the array.
+- From a compiler's point of view, `a` is equivalent to `&a[0]`.
+
+**[Go to Top](#contents)**
