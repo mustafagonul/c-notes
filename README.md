@@ -68,7 +68,7 @@
 22. [void Type Pointer](#void-type-pointer)
 23. [Strings](#strings)
 24. [Pointer Arrays](#pointer-arrays)
-25. []()
+25. [Multidimensional Arrays](#multidimensional-arrays)
 ---
 
 ## History of the C Language
@@ -1742,5 +1742,93 @@ int *p[] = {
 
 - The function that operates on an array needs to get the start address of the array and the size of the array.
 - From a compiler's point of view, `a` is equivalent to `&a[0]`.
+
+**[Go to Top](#contents)**
+
+## Multidimensional Arrays
+
+- 3D Example
+  - `int a[10][20][30]`
+- 2D Example
+  - `int m[10][20]`
+
+**Passing Two-Dimensional Arrays to Functions**
+
+- To pass an array to the function, the address of the first element of the array and the size of the array are sent to the function.
+- When the name of an array is processed in an expression, it is automatically converted to the address of the first element of the array.
+  - `int (*ptr)[10] = &a[0];`
+
+**Address of Arrays as Elements of Two-Dimensional Arrays**
+
+- When an array name is used in script, it is automatically converted by the compiler to the address of the first element of the array.
+- When a one-dimensional array that is an element of a two-dimensional array is accessed with the bracket operator, this expression is automatically converted to the address of that one-dimensional array.
+- During the definition of an array, expressions showing the array size must be a constant expression. The same condition applies to multidimensional arrays.
+- If the dimensions of a matrix are determined at runtime rather than at compile time, dynamic memory management should be used.
+
+**Initializing Two-Dimensional Arrays**
+
+```
+int a[3][5] = {{1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}, {11, 12, 13, 14, 15}};  // Option 1
+int a[3][5] = { 1, 2, 3, 4, 5, 6, 7, 8, 9}; // Option 2
+
+```
+
+- If desired, the initial value can be given inside the block containing the initial values without using the internal blocks. In this case, the compiler uses the given initial values to initialize arrays that are elements, respectively.
+
+**Two-Dimensional Arrays of char Type and Initializing**
+
+- Texts in a logical relationship can also be kept in a two-dimensional array.
+```
+char words[10][50];
+char names[ARRAY_SIZE][20];
+
+==================
+
+char names[5][10] = {"Ali", "Veli", "Hasan", "Tuncay", "Deniz"}; // Initializing
+```
+
+**Differences Between an Array of Type char * and a Two-Dimensional Array of Type char**
+
+```
+char *pNames[10] = {"Ali", "Veli", "Hasan", "Deniz", "Ferda", "Murat", "Furkan", "Erdem", "Kaan", "Gurbuz"};  // char * Type
+ 
+char names[10][20] = {"Ali", "Veli", "Hasan", "Deniz", "Ferda", "Murat", "Furkan", "Erdem", "Kaan", "Gurbuz"} // char Type
+
+```
+
+- Texts in a logical relationship can be kept in a two-dimensional array as well as with the help of a pointer array.
+  - The elements of a pointer array whose elements represent strings hold the starting addresses of the texts that can be used for reading purposes only.
+  - In the above example, it is not correct to modify the texts pointed to by the pointers of the `*pNames` array. However, the names in the `names` array can be changed if desired.
+
+**[Go to Top](#contents)**
+
+### `exit`, `abort`, `atexit` Functions
+
+- The execution of a C program starts from the `main` function and ends at the end of main or when this function produces a return value. The standard `exit` or `abort` functions can be called if the program wants to terminate while executing another function.
+
+**`exit` Fuction**
+
+- This standard function is declared in the stdlib.h header file: `void exit(int status);`
+- The function does the following cleaning jobs before terminating the currently running program:
+  1. Calls previously registered functions with the `atexit` function in reverse order according to their registration.
+  2. Frees the buffers of all files opened for writing. Closes all open files.
+  3. Deletes files opened with the `tmpfile` function.
+  4. Returns control to the system on which the program was run, with information that conveys the success status.
+- If the value sent to the function is 0 or the EXIT_SUCCESS symbolic literal, the function informs the system that the program was terminated on success. If the argument sent to the function is 1 or the symbolic literal EXIT_FAILURE, the function informs the system that the program was terminated due to failure.
+
+**`abort` Fuction**
+
+- This standard function is declared in the stdlib.h header file: `void abort(void);`
+- The function is called to terminate a C program abnormally. When a C program is terminated by a call to the `abort` function, functions previously registered with the `atexit` function are not called. It is at the compiler's choice whether to do some cleanup before the program terminates with the abort call.
+- This function is also called within the standard assert macro.
+
+**`atexit` Function**
+
+- This standard function is declared in the stdlib.h header file: `int atexit (void (*func)(void));
+- With the `atexit` function, a function is registered to be called when the program terminates or the `exit` function is called. Registered functions are not called when the program is terminated in abnormal ways, for example by `abort` or `raise`.
+- At least 32 functions can be registered with the `atexit` function.
+- The parameter of the function is the address of the function to be registered. The return value of the function conveys the success of the operation. A return value of 0 indicates the success of the operation, a value other than 0 indicates the failure of the operation.
+- There is no way to unregister a registered function.
+- Registered functions are called in reverse order in which they were registered. A function can be registered more than once. In this case it is run multiple times.
 
 **[Go to Top](#contents)**
