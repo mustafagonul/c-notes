@@ -69,6 +69,7 @@
 23. [Strings](#strings)
 24. [Pointer Arrays](#pointer-arrays)
 25. [Multidimensional Arrays](#multidimensional-arrays)
+26. [Dynamic Memory Management](#dynamic-memory-management)
 ---
 
 ## History of the C Language
@@ -1832,3 +1833,67 @@ char names[10][20] = {"Ali", "Veli", "Hasan", "Deniz", "Ferda", "Murat", "Furkan
 - Registered functions are called in reverse order in which they were registered. A function can be registered more than once. In this case it is run multiple times.
 
 **[Go to Top](#contents)**
+
+## Dynamic Memory Management
+
+- The tools that allow a contigous memory area of a certain size to be reserved by the running program during the program's runtime, and that such an area is returned to the system at any time, is called "dynamic memory management".
+- It is not possible to change the length of an array during program execution.
+- If the array is local, it is auto-lived. In other words, it survives during the execution of the code of the block in which it is defined.
+- If the array is generic, it has a static lifetime. That is, the array retains its place in memory for the duration of the program's execution.
+- Using dynamic memory management tools, the space occupied by one or more objects at program runtime can be done at runtime rather than compile time.
+- The requirement for an object that will start at a certain time of the program and end at a certain time can only be realized with dynamic memory management.
+
+### `malloc` Function
+
+- The malloc function obtains a dynamic block from memory during program runtime. Here is the function's declaration in the stdlib.h header file: 
+  - `void *malloc(size_t nbyte);`
+  - The function takes the length, in bytes, of the desired block. It is ensured that the allocated area is contiguous.
+  - It is not guaranteed that the malloc function will allocate the desired block.
+  - When malloc fails, it returns NULL. The success of the function call must be tested.
+  - In case of failure of the function, reading or writing from the return value address will cause the contents of the NULL address to be dereferencing a null pointer. This is also a pointer error.
+  - Blocks obtained by different calls to malloc are not guaranteed to be contiguous in memory.
+  - The block obtained with the malloc function contains garbage values.
+  - The memory region made available to dynamic memory functions is called heap.
+  - Since the parameter variable of the malloc function is of type unsigned int (size_t) in most systems, a block with a maximum size of 65535 bytes, or 64KB, can be obtained with the malloc function under DOS. However, since the unsigned int type is 4 bytes long in 32-bit systems such as UNIX and WINDOWS, a contiguous block with a length of 4294967295 bytes (4 MB) can theoretically be obtained with the malloc function in these systems.
+
+### Returning the Obtained Dynamic Block
+
+- A block obtained from a call to dynamic memory functions can be returned to the system by a call to `free` from its standard functions. The declaration of the `free` function is also in the stdlib.h header file:
+  - `void free(void *block);`
+- The free function takes only the starting address of the memory block to be returned. Sending another address as an argument to the free function instead of the start address of a memory block previously obtained with dynamic memory functions is undefined behavior and should not be done.
+
+### Using a Dynamic Array
+
+- A block of memory obtained with the malloc function can be used as an array whose size is obtained at program runtime.
+
+### `calloc` Function
+
+- The calloc function is called from the heap area to obtain a memory block of bytes equal to the product of the first parameter and the second parameter.
+- The return value of the function is the starting address of the resulting memory block if the allocation was successful. If the allocation is not successful, the calloc function returns NULL just like the malloc function.
+- All bytes of the block obtained by the calloc function have zero values. If the allocated block is to be reset, the calloc function can be preferred instead of the malloc function.
+
+### Memory Leak
+
+- With dynamic memory functions, a block obtained from the heap space is kept until the call to the `free` function.
+- If the starting address of the dynamic block is lost, there is no chance to use this block until the end of the program, nor can it be returned to the block heap area. This situation is called memory leak.
+
+### `realloc` Function
+
+- The realloc function is called to enlarge or shrink a memory block previously obtained with the malloc or calloc functions. The declaration of the function is in the stdlib.h header file:
+  - `void *realloc(void *block, size_t newSize);`
+  - The first argument to the realloc function is the start address of a previously obtained memory block, and the second argument is the size of the new block obtained after enlarging or shrinking it.
+- When a dynamic block is enlarged with the realloc function, the function does not have to enlarge the block to a higher numeric address.
+- The realloc function returns NULL if a continuous field of the requested length is not found.
+- If the realloc function was successful, there are two possibilities:
+  - The realloc function provided the additional memory space by finding free space just below the previously obtained dynamic range, that is, at the higher numeric address, to enlarge the first block. This is not uncommon in most systems. In this case, the return value of the realloc function is the address sent to the first parameter of the function.
+  - The realloc function may not have found a free space under the previously allocated block or may not have chosen an enlargement in this direction. Because of this behavior of the realloc function, the return value must be set to a pointer variable.
+- If the first argument to the realloc function is the NULL address, the realloc function behaves exactly like the malloc function.
+- If the value of the expression, the second argument to the realloc function, is 0, the realloc function behaves exactly like the free function.
+
+### Functions That Return to the Start Address of a Dynamic Blog
+
+- Since a dynamically allocated block can be safely used until it is returned to the system by the free function, a function can return the starting address of such a block.
+
+### Managing Multiple Dynamic Fields with a Pointer Array
+
+- The starting addresses of different blocks obtained by dynamic memory functions can be held in the elements of a pointer array.
